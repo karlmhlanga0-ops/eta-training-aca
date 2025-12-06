@@ -1,0 +1,119 @@
+/* 1. FONT IMPORT: Updated to Plus Jakarta Sans */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fadeInUp 1s ease-out;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@layer base {
+  :root {
+    /* 2. COLOR VARIABLES: New Primary, Secondary, and Text Dark (Foreground) */
+    
+    /* Empodera Blue (#3349df) -> HSL: 231 79% 53% */
+    --primary: 231 79% 53%;
+    --primary-foreground: 210 40% 98%;
+
+    /* Sky Blue (#3b82f6) -> HSL: 214 92% 60% */
+    --secondary: 214 92% 60%; 
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    /* Dark Slate Text (#1f2937) -> HSL: 217 32% 17% (used as the new foreground/text color) */
+    --foreground: 217 32% 17%; /* This controls the default text color */
+    --popover-foreground: 217 32% 17%;
+    --card-foreground: 217 32% 17%;
+    
+    --background: 210 40% 98%;
+
+    --card: 0 0% 100%;
+
+    --popover: 0 0% 100%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 231 79% 53%; /* Ring should match primary color */
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 220 23% 95%;
+    --sidebar-foreground: 215 25% 27%;
+    --sidebar-primary: 231 79% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 90%;
+    --sidebar-accent-foreground: 215 25% 27%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 231 79% 53%;
+  }
+
+  /* Note: I'm leaving the 'dark' theme untouched, as you didn't specify dark mode colors. */
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    /* ... rest of dark variables ... */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    /* 3. FONT APPLICATION: Apply Plus Jakarta Sans */
+    @apply bg-background text-foreground font-[Plus_Jakarta_Sans] dark:bg-background dark:text-foreground;
+  }
+  
+  /* Set other headings/elements to use the same new font */
+  .markdown-preview h1,
+  .markdown-preview h2,
+  .markdown-preview h3,
+  .markdown-preview h4,
+  .markdown-preview h5,
+  .markdown-preview h6 {
+    @apply font-[Plus_Jakarta_Sans] font-semibold text-foreground;
+  }
+
+  pre, code {
+    @apply font-mono;
+  }
+}
+/* Add this CSS globally for the auto-scroll animation */
+@keyframes scroll-loop {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%); /* Moves the first set of logos completely off-screen */
+  }
+}
+
+/* Apply the animation to the container */
+.animate-scroll {
+  animation: scroll-loop 40s linear infinite; /* Adjust duration for speed */
+}
