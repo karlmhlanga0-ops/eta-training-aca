@@ -1,12 +1,14 @@
 // /src/pages/ProgramDetail.tsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Clock, Target, Award, CheckCircle, Mail, Phone } from 'lucide-react';
 import { LEARNERSHIP_DATA, Programme, getProgrammeBySlug } from '@/data/programmes';
+import EasyQuoteModal from '@/components/EasyQuoteModal';
 
 const ProgramDetail: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
+    const [modalOpen, setModalOpen] = useState(false);
     const programme: Programme | undefined = getProgrammeBySlug(slug || '');
 
     if (!programme) {
@@ -43,42 +45,65 @@ const ProgramDetail: React.FC = () => {
 
                     <section className="p-8 bg-white rounded-xl shadow-lg border border-gray-100">
                         <h3 className="text-2xl font-bold mb-4">Duration</h3>
-                        <p className="text-gray-700">This learnership runs for {programme.duration} and includes both classroom and workplace components (placeholder content).</p>
+                        <p className="text-gray-700">This learnership runs for {programme.duration} and includes both classroom and workplace components.</p>
                     </section>
 
                     <section className="p-8 bg-white rounded-xl shadow-lg border border-gray-100">
                         <h3 className="text-2xl font-bold mb-4">Delivery Method</h3>
-                        <p className="text-gray-700">Blended delivery: online modules, classroom sessions and workplace coaching. (Placeholder)</p>
+                        <p className="text-gray-700">{programme.format}</p>
                     </section>
 
                     <section className="p-8 bg-white rounded-xl shadow-lg border border-gray-100">
                         <h3 className="text-2xl font-bold mb-4">Who Should Attend</h3>
-                        <p className="text-gray-700">Placeholder: target audience description goes here.</p>
+                        <p className="text-gray-700">{programme.who_should_attend}</p>
                     </section>
 
                     <section className="p-8 bg-white rounded-xl shadow-lg border border-gray-100">
-                        <h3 className="text-2xl font-bold mb-4">Prerequisites</h3>
-                        <p className="text-gray-700">Placeholder: entry requirements and eligibility criteria.</p>
+                        <h3 className="text-2xl font-bold mb-4">Prerequisites / Entry Requirements</h3>
+                        <ul className="list-disc list-inside text-gray-700">
+                          {(programme.entry_requirements || []).map((r, i) => <li key={i}>{r}</li>)}
+                        </ul>
                     </section>
 
                     <section className="p-8 bg-white rounded-xl shadow-lg border border-gray-100">
-                        <h3 className="text-2xl font-bold mb-4">Qualification</h3>
-                        <p className="text-gray-700">Placeholder: details about the qualification and certification awarded.</p>
+                        <h3 className="text-2xl font-bold mb-4">Certification</h3>
+                        <p className="text-gray-700">{programme.certification || 'Certification details available on request.'}</p>
                     </section>
 
                     <section className="p-8 bg-white rounded-xl shadow-lg border border-gray-100">
                         <h3 className="text-2xl font-bold mb-4">Modules</h3>
-                        <p className="text-gray-700">Placeholder: module list and brief descriptions.</p>
+                        <ul className="list-disc list-inside text-gray-700">
+                          {programme.key_modules.map((m) => <li key={m}>{m}</li>)}
+                        </ul>
                     </section>
 
                     <section className="p-8 bg-white rounded-xl shadow-lg border border-gray-100">
-                        <h3 className="text-2xl font-bold mb-4">Course Objectives</h3>
-                        <p className="text-gray-700">Placeholder: learning objectives and outcomes.</p>
+                        <h3 className="text-2xl font-bold mb-4">Learning Outcomes</h3>
+                        <ul className="list-disc list-inside text-gray-700">
+                          {(programme.learning_outcomes || []).map((l) => <li key={l}>{l}</li>)}
+                        </ul>
                     </section>
 
                     <section className="p-8 bg-white rounded-xl shadow-lg border border-gray-100">
-                        <h3 className="text-2xl font-bold mb-4">The Secret To Success</h3>
-                        <p className="text-gray-700">Placeholder: recommended approach for successful completion.</p>
+                        <h3 className="text-2xl font-bold mb-4">A Qualified Learner Will Be Able To</h3>
+                        <ul className="list-disc list-inside text-gray-700">
+                          {(programme.qualified_will_be_able_to || []).map((q) => <li key={q}>{q}</li>)}
+                        </ul>
+                    </section>
+
+                    <section className="p-8 bg-white rounded-xl shadow-lg border border-gray-100">
+                        <h3 className="text-2xl font-bold mb-4">International Comparability</h3>
+                        <ul className="list-disc list-inside text-gray-700">
+                          {(programme.international_comparability || []).map((c) => <li key={c}>{c}</li>)}
+                        </ul>
+                    </section>
+
+                    <section className="p-8 bg-white rounded-xl shadow-lg border border-gray-100">
+                        <h3 className="text-2xl font-bold mb-4">Career Opportunities</h3>
+                        <ul className="list-disc list-inside text-gray-700">
+                          {(programme.career_opportunities || []).map((c) => <li key={c}>{c}</li>)}
+                        </ul>
+                        <p className="text-gray-600 mt-4"><strong>Learning Options:</strong> {programme.learning_options}</p>
                     </section>
                 </div>
 
@@ -96,7 +121,9 @@ const ProgramDetail: React.FC = () => {
                             </ul>
                         </div>
 
-                        <Link to="/quote" className="block w-full text-center py-3 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-xl font-bold">Inquire / Enrol Now</Link>
+                        <button onClick={() => setModalOpen(true)} className="block w-full text-center py-3 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-xl font-bold">Inquire / Enrol Now</button>
+
+                        <EasyQuoteModal isOpen={modalOpen} onClose={() => setModalOpen(false)} initialProgramId={programme.id} />
 
                         <div className="p-6 bg-white rounded-xl border border-gray-100">
                             <h5 className="font-semibold mb-2">Contact Us</h5>

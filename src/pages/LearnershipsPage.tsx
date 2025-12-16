@@ -1,31 +1,51 @@
 // /src/pages/Learnerships.tsx - FINALIZED CONTENT & LAYOUT
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Target, Award, DollarSign, Users, Briefcase, Zap, Trello, Clock } from 'lucide-react'; 
-import { LEARNERSHIP_DATA } from '@/data/programmes';
+import { LEARNERSHIP_DATA, Programme } from '@/data/programmes';
+import EasyQuoteModal from '@/components/EasyQuoteModal';
 
 // Placeholder Learnership Card Component (Based on your home page design)
-const LearnershipCard: React.FC<any> = ({ name, id, seta, saqa_id, nqf_level, duration }) => (
+const LearnershipCard: React.FC<{ programme: Programme; onEnquire: (id: string) => void }> = ({ programme, onEnquire }) => {
+    const [open, setOpen] = useState(false);
+    return (
     <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 flex flex-col hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
         <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider bg-gray-100 py-1 px-3 rounded-full mb-3 inline-block">
-            {seta}
+            {programme.seta}
         </span>
-        <h3 className="text-xl font-bold text-gray-900 mb-4 line-clamp-2">{name}</h3>
-        
-        <div className="flex flex-col space-y-2 text-sm text-gray-600 mb-6 flex-grow">
-            {/* The NQF level and Duration are placeholders here as they vary by qualification */}
-            <span className="flex items-center"><Target className="w-4 h-4 mr-2 text-[#3349df]" /> NQF Level {nqf_level}</span> 
-            <span className="flex items-center"><Award className="w-4 h-4 mr-2 text-[#3349df]" /> SAQA ID: {saqa_id}</span>
+        <h3 className="text-xl font-bold text-gray-900 mb-4">{programme.name}</h3>
+        <div className="flex items-center text-sm text-gray-600 mb-3 gap-4">
+            <span className="flex items-center"><Target className="w-4 h-4 mr-2 text-[#3349df]" /> NQF {programme.nqf_level}</span>
+            <span className="flex items-center"><Award className="w-4 h-4 mr-2 text-[#3349df]" /> SAQA {programme.saqa_id}</span>
+            <span className="flex items-center"><Clock className="w-4 h-4 mr-2 text-[#3349df]" /> {programme.duration}</span>
         </div>
-        <Link 
-            to={`/learnerships/${id}`} 
-            className="block w-full text-center py-2 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-full font-semibold hover:opacity-90 transition-opacity"
-        >
-            View Full Qualification
-        </Link>
+
+        <p className="text-sm text-gray-700 mb-4 line-clamp-4">{programme.long_description}</p>
+
+        <div className="mt-auto flex gap-3">
+            <button onClick={() => setOpen(!open)} className="px-4 py-2 border border-gray-200 rounded-md text-sm text-gray-700 hover:bg-gray-50">{open ? 'Hide details' : 'Read more'}</button>
+            <button onClick={() => onEnquire(programme.id)} className="ml-auto px-4 py-2 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-full font-semibold text-sm">Enquire / Enrol Now</button>
+        </div>
+
+        {open && (
+            <div className="mt-4 pt-4 border-t border-gray-100 text-sm text-gray-700">
+                <h4 className="font-semibold mb-2">Key Modules</h4>
+                <ul className="list-disc list-inside mb-3">
+                    {programme.key_modules.map((m) => <li key={m}>{m}</li>)}
+                </ul>
+                <h4 className="font-semibold mb-2">Who Should Attend</h4>
+                <p className="mb-2">{programme.who_should_attend}</p>
+                <h4 className="font-semibold mb-2">Summary</h4>
+                <p className="whitespace-pre-line">{programme.short_description}</p>
+                <div className="mt-3">
+                    <Link to={`/learnerships/${programme.id}`} className="text-sm text-[#3349df] hover:underline">View full page</Link>
+                </div>
+            </div>
+        )}
     </div>
-);
+    );
+};
 
 
 /**
@@ -61,17 +81,10 @@ const sortLearnerships = (a: any, b: any): number => {
 // --- MAIN PAGE COMPONENT ---
 
 const LearnershipsPage: React.FC = () => {
-    
-    const rawLearnerships = LEARNERSHIP_DATA.map(p => ({
-        name: p.name,
-        id: p.id,
-        seta: p.seta,
-        saqa_id: p.saqa_id,
-        nqf_level: p.nqf_level,
-        duration: p.duration
-    }));
-    
-    const featuredLearnerships = rawLearnerships.sort(sortLearnerships);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalProgram, setModalProgram] = useState<string | undefined>(undefined);
+
+    const featuredLearnerships = [...LEARNERSHIP_DATA].sort(sortLearnerships);
 
     const featuredCount = featuredLearnerships.length;
 
@@ -97,12 +110,9 @@ const LearnershipsPage: React.FC = () => {
                         </p>
 
                         <div className="flex flex-wrap gap-4">
-                            <Link 
-                                to="/quote" 
-                                className="px-8 py-3 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-300"
-                            >
+                            <button onClick={() => { setModalProgram(undefined); setModalOpen(true); }} className="px-8 py-3 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-300">
                                 Get a Quote Today
-                            </Link>
+                            </button>
                             <a 
                                 href="/brochure-learnerships.pdf" 
                                 className="px-8 py-3 bg-white border border-[#3349df] text-[#3349df] rounded-full font-semibold text-lg hover:bg-[#eef1ff] transition-colors"
@@ -170,9 +180,8 @@ const LearnershipsPage: React.FC = () => {
                 
                 {/* ⚠️ Adjusted grid to maintain clean blocks of 3 */}
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {/* The list rendered here is now sorted */}
                     {featuredLearnerships.map((learnership) => (
-                        <LearnershipCard key={learnership.id} {...learnership} />
+                        <LearnershipCard key={learnership.id} programme={learnership} onEnquire={(id) => { setModalProgram(id); setModalOpen(true); }} />
                     ))}
                 </div>
                 
@@ -186,6 +195,10 @@ const LearnershipsPage: React.FC = () => {
                     </Link>
                 </div>
             </section>
+
+            {modalOpen && (
+                <EasyQuoteModal isOpen={modalOpen} onClose={() => setModalOpen(false)} initialProgramId={modalProgram} />
+            )}
 
         </main>
     );

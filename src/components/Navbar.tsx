@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
+import EasyQuoteModal from '@/components/EasyQuoteModal';
 
 // Define the full navigation structure with paths matching App.tsx
 const navLinks = [
@@ -108,9 +109,8 @@ const DropdownLink: React.FC<DropdownLinkProps> = ({ name, links, isMobile, onCl
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Placeholder for Empodera Logo
-  // Replaced static URL with a more robust placeholder for production (needs replacement)
   const logoUrl = "https://d64gsuwffb70l.cloudfront.net/689f069373db79e875d8de8a_1760338302628_a7cf9aea.png";
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -128,6 +128,9 @@ const Navbar: React.FC = () => {
               alt="Empodera Training Academy Logo"
             />
           </Link>
+          <div className="hidden sm:flex sm:items-center sm:ml-3">
+            <span className="text-sm italic text-gray-600">Accelerating your ETA to excellence</span>
+          </div>
 
           {/* Desktop Navigation and CTA */}
           <div className="hidden lg:flex items-center space-x-2">
@@ -157,12 +160,9 @@ const Navbar: React.FC = () => {
             })}
             
             {/* Primary CTA Button (Generate Quote) */}
-            <Link 
-                to="/quote" // Linked to the /quote route in App.tsx
-                className="ml-6 px-6 py-2.5 text-sm bg-primary text-white rounded-full font-bold shadow-lg hover:bg-secondary transition-all duration-300 transform hover:-translate-y-0.5"
-            >
-                Generate Quote
-            </Link>
+            <button onClick={() => setIsModalOpen(true)} className="ml-6 px-6 py-2.5 text-sm bg-primary text-white rounded-full font-bold shadow-lg hover:bg-secondary transition-all duration-300 transform hover:-translate-y-0.5">
+              Generate Quote
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -210,16 +210,13 @@ const Navbar: React.FC = () => {
             })}
             
             {/* Mobile CTA Button */}
-            <Link 
-              to="/quote" 
-              className="block w-full mt-4 px-4 py-3 text-base text-center bg-primary text-white rounded-lg font-bold shadow-lg hover:bg-secondary transition-colors duration-300"
-              onClick={toggleMenu}
-            >
+            <button onClick={() => { setIsModalOpen(true); toggleMenu(); }} className="block w-full mt-4 px-4 py-3 text-base text-center bg-primary text-white rounded-lg font-bold shadow-lg hover:bg-secondary transition-colors duration-300">
               Generate Quote
-            </Link>
+            </button>
           </div>
         </div>
       )}
+      {isModalOpen && <EasyQuoteModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
     </nav>
   );
 };

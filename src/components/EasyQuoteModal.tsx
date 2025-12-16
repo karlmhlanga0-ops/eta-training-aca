@@ -6,16 +6,17 @@ import type { Programme } from '@/data/programmes';
 interface EasyQuoteModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialProgramId?: string;
 }
 
-const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose }) => {
+const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initialProgramId }) => {
   const [formData, setFormData] = useState({
     company: '',
     fullName: '',
     position: '',
     email: '',
     contactNumber: '',
-    programSlug: LEARNERSHIP_DATA[0]?.id || '',
+    programSlug: initialProgramId || LEARNERSHIP_DATA[0]?.id || '',
     learners: 10,
     mode: 'Online'
   });
@@ -98,6 +99,10 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose }) => {
           {successMessage && (
             <div className="p-4 rounded-md bg-green-50 border border-green-200 text-green-800">{successMessage}</div>
           )}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Company Name</label>
+            <input type="text" value={formData.company} onChange={(e) => setFormData({...formData, company: e.target.value})} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3349df] focus:border-transparent" />
+          </div>
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
             <input type="text" required value={formData.fullName} onChange={(e) => setFormData({...formData, fullName: e.target.value})} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3349df] focus:border-transparent" />

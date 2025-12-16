@@ -130,15 +130,13 @@ const Footer: React.FC = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           
           {/* Logo & Tagline */}
-          <div>
+            <div>
             <img 
-              src="https://d64gsuwffb70l.cloudfront.net/689f069373db79e875d8de8a_1760338302628_a7cf9aea.png" 
-              alt="Empodera Logo" 
-              className="h-12 mb-4"
+              src="src/assets/PHOTO-2025-09-09-18-41-53-removebg-preview.png" 
+              alt="Empodera Logo White" 
+              
             />
-            <p className="text-white/80 text-sm">
-              Building Africa's Future Workforce
-            </p>
+           
           </div>
 
           {/* Quick Links */}

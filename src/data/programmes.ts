@@ -19,6 +19,14 @@ export interface Programme {
   key_modules: string[];
   who_should_attend: string;
 
+  learning_outcomes?: string[];
+  qualified_will_be_able_to?: string[];
+  entry_requirements?: string[];
+  international_comparability?: string[];
+  certification?: string;
+  career_opportunities?: string[];
+  learning_options?: string;
+
   format: string;
   image_url: string;
 }
@@ -49,6 +57,39 @@ export const LEARNERSHIP_DATA: Programme[] = [
       'Data Analysis and Reporting'
     ],
     who_should_attend: 'Individuals currently working as supervisors, team leaders, or those transitioning into management within a contact centre environment.',
+    learning_outcomes: [
+      'Manage budgets and financial performance',
+      'Lead teams and workforce planning',
+      'Monitor operations and service levels',
+      'Manage customer and supplier relations',
+      'Implement quality management systems',
+      'Optimise technology and processes'
+    ],
+    qualified_will_be_able_to: [
+      'Develop and control budgets',
+      'Align operational plans to SLAs',
+      'Lead teams and manage performance',
+      'Apply industrial relations principles',
+      'Maintain quality and compliance systems',
+      'Analyse and improve service processes'
+    ],
+    entry_requirements: [
+      'NQF Level 4 (preferred) or RPL as applicable'
+    ],
+    international_comparability: [
+      'UK: NVQ Contact Centre Operations',
+      'NZ: Diploma in Contact Centre Management',
+      'Australia: Diploma of Customer Contact'
+    ],
+    certification: 'Occupational Certificate: Contact Centre Manager (NQF 5)',
+    career_opportunities: [
+      'Contact Centre Manager',
+      'BPO Manager',
+      'Operations Manager',
+      'Customer Service Manager',
+      'Quality Assurance Manager'
+    ],
+    learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
     image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Contact+Centre'
   },
@@ -73,6 +114,36 @@ export const LEARNERSHIP_DATA: Programme[] = [
       'Risk Management in Supply Chain'
     ],
     who_should_attend: 'Employees involved in logistics, purchasing, operations planning, or those aiming for managerial roles in transport and supply chain divisions.',
+    learning_outcomes: [
+      'Coordinate supply chain and logistics operations',
+      'Manage procurement cycles and supplier relationships',
+      'Optimise inventory and warehouse operations',
+      'Analyse supply chain data for planning and decision-making',
+      'Apply regulatory, compliance, and safety requirements',
+      'Use ERP and digital systems to improve efficiency'
+    ],
+    qualified_will_be_able_to: [
+      'Implement procurement strategies',
+      'Manage stock levels and warehouse flow',
+      'Coordinate transportation and distribution',
+      'Ensure supply chain legal and safety compliance',
+      'Support continuous improvement across the value chain'
+    ],
+    entry_requirements: ['NQF Level 4 or Recognition of Prior Learning (RPL)'],
+    international_comparability: [
+      'UK: Diploma in Supply Chain Operations',
+      'Australia: Diploma of Logistics',
+      'New Zealand: Level 5 Supply Chain Management'
+    ],
+    certification: 'Occupational Certificate: Supply Chain Practitioner (NQF 5)',
+    career_opportunities: [
+      'Logistics Coordinator',
+      'Procurement Officer',
+      'Inventory Controller',
+      'Supply Chain Practitioner',
+      'Warehouse Planner'
+    ],
+    learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
     image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Supply+Chain'
   },
@@ -97,6 +168,34 @@ export const LEARNERSHIP_DATA: Programme[] = [
       'Basic Freight Documentation'
     ],
     who_should_attend: 'Unemployed youth (18.1), warehouse operatives, or new employees starting in entry-level logistics, transport, or storage roles.',
+    learning_outcomes: [
+      'Handle, move, and secure freight',
+      'Follow health, safety, and environmental procedures',
+      'Use Material Handling Equipment (MHE)',
+      'Assist with warehouse receiving, dispatching, and storage',
+      'Process freight labels and documentation'
+    ],
+    qualified_will_be_able_to: [
+      'Prepare, pack, and secure loads',
+      'Operate MHE safely',
+      'Conduct stock counts and cycle counts',
+      'Work within logistics teams',
+      'Maintain accurate cargo records'
+    ],
+    entry_requirements: ['NQF Level 1 or RPL'],
+    international_comparability: [
+      'UK: Warehouse Operative Certificates',
+      'Australia: Certificate II/III in Warehousing',
+      'NZ: Level 3 Logistics Certificates'
+    ],
+    certification: 'Occupational Certificate: Freight Handler (NQF 3)',
+    career_opportunities: [
+      'Freight Handler',
+      'Warehouse Assistant',
+      'Dispatch/Receiving Clerk',
+      'Courier Operations Assistant'
+    ],
+    learning_options: 'Classroom • Practical warehouse training • EISA',
     format: 'Blended (Online & Workplace)',
     image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Freight+Handling'
   },
@@ -121,6 +220,34 @@ export const LEARNERSHIP_DATA: Programme[] = [
       'Client Portfolio Management'
     ],
     who_should_attend: 'Individuals working in sales support, client advisory roles, or directly involved in the risk assessment and policy creation process.',
+    learning_outcomes: [
+      'Analyse risk and apply underwriting principles',
+      'Provide financial needs analysis',
+      'Market and explain insurance products',
+      'Apply regulatory and legislative requirements',
+      'Administer policies and client records'
+    ],
+    qualified_will_be_able_to: [
+      'Underwrite policies',
+      'Conduct risk classification',
+      'Manage client portfolios',
+      'Ensure FAIS and FICA compliance',
+      'Handle policy and claims documentation'
+    ],
+    entry_requirements: ['NQF Level 4 (RPL available)'],
+    international_comparability: [
+      'UK: CII Insurance Certificate',
+      'Australia: Diploma of Insurance Services',
+      'New Zealand: Financial Services Certificates'
+    ],
+    certification: 'Occupational Certificate: Insurance Agent/Underwriter (NQF 5)',
+    career_opportunities: [
+      'Insurance Consultant',
+      'Underwriter',
+      'Risk Assessor',
+      'Client Care Advisor'
+    ],
+    learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
     image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Insurance+Risk'
   },
@@ -145,6 +272,32 @@ export const LEARNERSHIP_DATA: Programme[] = [
       'Team Leadership and Execution'
     ],
     who_should_attend: 'New or existing employees who are expected to manage projects, project teams, or departmental initiatives.',
+    learning_outcomes: [
+      'Manage full project life cycle',
+      'Develop schedules, plans, budgets, and reports',
+      'Lead teams and coordinate stakeholders',
+      'Apply project governance and compliance',
+      'Monitor progress and manage risks'
+    ],
+    qualified_will_be_able_to: [
+      'Create project charters and WBS',
+      'Execute tasks against project plans',
+      'Implement change and risk management',
+      'Finalise project close-out reports'
+    ],
+    entry_requirements: ['NQF Level 4 (RPL available)'],
+    international_comparability: [
+      'PMI Fundamentals',
+      'PRINCE2 Alignment',
+      'UK Level 4/5 Project Management Diplomas'
+    ],
+    certification: 'Occupational Certificate: Project Manager (NQF 5)',
+    career_opportunities: [
+      'Project Manager',
+      'Project Coordinator',
+      'Programme Support Officer'
+    ],
+    learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
     image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Project+Mgt'
   },
@@ -169,6 +322,32 @@ export const LEARNERSHIP_DATA: Programme[] = [
       'Dispute Resolution and Ethics'
     ],
     who_should_attend: 'Individuals starting their career in claims administration, processing, or assessment roles within the insurance industry.',
+    learning_outcomes: [
+      'Assess claim validity',
+      'Investigate and verify supporting documents',
+      'Apply legislation and compliance',
+      'Communicate with clients and service providers',
+      'Maintain accurate claims records'
+    ],
+    qualified_will_be_able_to: [
+      'Conduct investigations and validate claims',
+      'Interpret policy wording and make determinations',
+      'Identify and escalate fraud indicators',
+      'Maintain client and claims records accurately'
+    ],
+    entry_requirements: ['NQF Level 3 or 4 (RPL available)'],
+    international_comparability: [
+      'UK: CII Claims Foundation',
+      'Australia: Certificate IV in Insurance',
+      'New Zealand: Insurance Services Certificates'
+    ],
+    certification: 'Occupational Certificate: Claims Administrator/Assessor (NQF 4)',
+    career_opportunities: [
+      'Claims Administrator',
+      'Claims Assessor',
+      'Policy Support Officer'
+    ],
+    learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
     image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Claims+Admin'
   },
@@ -193,6 +372,33 @@ export const LEARNERSHIP_DATA: Programme[] = [
       'Customer Service and Delivery Protocol'
     ],
     who_should_attend: 'Unemployed individuals seeking to enter the transportation sector or current drivers needing formal certification and upskilling in regulatory compliance.',
+    learning_outcomes: [
+      'Operate heavy vehicles safely',
+      'Conduct pre-trip and post-trip inspections',
+      'Apply road traffic rules and defensive driving',
+      'Manage cargo and documentation',
+      'Complete trip reports and route plans'
+    ],
+    qualified_will_be_able_to: [
+      'Operate heavy vehicles competently',
+      'Perform vehicle inspections and maintenance checks',
+      'Plan routes and manage deliveries',
+      'Ensure compliance with regulations and permits'
+    ],
+    entry_requirements: ['Code 10 or 14 licence (depending on employer needs); NQF Level 1 or RPL'],
+    international_comparability: [
+      'UK HGV Training',
+      'Australia Heavy Vehicle Licence Training',
+      'NZ Commercial Driver Certificates'
+    ],
+    certification: 'Occupational Certificate: Professional Driver (NQF 3)',
+    career_opportunities: [
+      'Heavy Vehicle Driver',
+      'Long-Distance Driver',
+      'Delivery Driver',
+      'Transport Operator'
+    ],
+    learning_options: 'Classroom • Driving practicals • Workplace learning • EISA',
     format: 'Blended (Practical & Theory)',
     image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Truck+Driver'
   },
@@ -217,6 +423,33 @@ export const LEARNERSHIP_DATA: Programme[] = [
       'Human Resource Management in Transport'
     ],
     who_should_attend: 'Existing supervisors or staff identified for management progression within the transport and logistics department.',
+    learning_outcomes: [
+      'Develop and manage transport operation plans',
+      'Implement fleet and asset management systems',
+      'Lead teams and manage performance',
+      'Apply transport legislation and safety principles',
+      'Control operational budgets and cost-efficiency'
+    ],
+    qualified_will_be_able_to: [
+      'Monitor KPIs such as fuel, maintenance, and utilisation',
+      'Manage routing, dispatch, and scheduling',
+      'Lead operational teams',
+      'Ensure compliance and mitigate risk'
+    ],
+    entry_requirements: ['NQF Level 4 (RPL available)'],
+    international_comparability: [
+      'UK Transport Manager CPC',
+      'Australia Diploma of Logistics',
+      'NZ Road Transport Management'
+    ],
+    certification: 'Occupational Certificate: Road Transport Manager (NQF 5)',
+    career_opportunities: [
+      'Transport Manager',
+      'Fleet Manager',
+      'Depot Manager',
+      'Logistics Operations Manager'
+    ],
+    learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
     image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Transport+Manager'
   },
@@ -241,6 +474,33 @@ export const LEARNERSHIP_DATA: Programme[] = [
       'Risk Management in International Freight'
     ],
     who_should_attend: 'Individuals working in international trade, shipping, logistics, or roles requiring cross-border documentation knowledge.',
+    learning_outcomes: [
+      'Process customs declarations and permits',
+      'Apply INCOTERMS and global trade conventions',
+      'Calculate duties and tariffs',
+      'Coordinate freight movement across sea, air, and land',
+      'Communicate with customs, agents, and clients'
+    ],
+    qualified_will_be_able_to: [
+      'Classify goods using HS tariff codes',
+      'Prepare shipping documentation',
+      'Ensure compliance with SARS customs laws',
+      'Track shipments and resolve delays'
+    ],
+    entry_requirements: ['NQF Level 4 (RPL available)'],
+    international_comparability: [
+      'FIATA Diploma',
+      'UK Freight Forwarding Certifications',
+      'NZ International Logistics Certificates'
+    ],
+    certification: 'Occupational Certificate: Clearing & Forwarding Agent (NQF 5)',
+    career_opportunities: [
+      'Customs Clearing Agent',
+      'Freight Forwarder',
+      'Import/Export Controller',
+      'International Logistics Coordinator'
+    ],
+    learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
     image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Clearing+Agent'
   }
