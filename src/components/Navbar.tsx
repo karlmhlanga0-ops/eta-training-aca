@@ -4,15 +4,15 @@ import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
 import EasyQuoteModal from '@/components/EasyQuoteModal';
 
 // Define the full navigation structure with paths matching App.tsx
-const navLinks = [
+  const navLinks = [
   { name: 'Home', href: '/' },
   { 
     name: 'Programmes', 
-    href: '#', // Set to # as there is no direct /programmes route defined in App.tsx
+    href: '/learnerships',
     dropdown: [
-        { name: 'Learnerships', href: '/learnerships' },      // Corrected path
-        { name: 'Short Programmes', href: '/short-programmes' }, // Corrected path
-        { name: 'Masterclasses', href: '/masterclasses' },    // Corrected path
+        { name: 'Learnerships', href: '/learnerships' },      
+        { name: 'Short Programmes', href: '/short-programmes' },
+        { name: 'Masterclasses', href: '/masterclasses' },    
     ]
   },
   // Note: I assume you will add a route for /about in App.tsx, which should route to AboutPage
@@ -53,9 +53,8 @@ const DropdownLink: React.FC<DropdownLinkProps> = ({ name, links, isMobile, onCl
                 onMouseLeave={() => setIsDropdownOpen(false)}
             >
                 <Link
-                    to={mainHref}
-                    className="flex items-center text-text-dark hover:text-primary transition-colors px-3 py-2 rounded-md font-semibold"
-                    onClick={toggleDropdown} 
+                  to={mainHref}
+                  className="flex items-center text-text-dark hover:text-primary transition-colors px-3 py-2 rounded-md font-semibold"
                 >
                     {name}
                     <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />

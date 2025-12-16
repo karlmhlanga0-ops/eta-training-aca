@@ -1,6 +1,6 @@
 // /src/pages/SLPPage.tsx - FINALIZED CONTENT & LAYOUT
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Zap, Clock, TrendingUp, Users, Trello, Target, Award } from 'lucide-react'; 
 
@@ -36,7 +36,7 @@ const SLPCard: React.FC<{ title: string; slug: string; duration: string }> = ({ 
 );
 
 const SLPPage: React.FC = () => {
-    
+    const [modalOpen, setModalOpen] = useState(false);
    const rawSLPs: ShortProgramme[] = [
         { title: 'Digital Transformation & Future of Work', slug: 'digital-transform', duration: '3 Days' },
         { title: 'Artificial Intelligence & Data Analytics for Business', slug: 'ai-data-analytics', duration: '5 Days' },
@@ -78,12 +78,7 @@ const SLPPage: React.FC = () => {
                         </p>
 
                         <div className="flex flex-wrap gap-4">
-                            <Link 
-                                to="/quote" 
-                                className="px-8 py-3 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-300"
-                            >
-                                Inquire Now
-                            </Link>
+                            <button onClick={() => setModalOpen(true)} className="px-8 py-3 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-300">Inquire Now</button>
                             <a 
                                 href="/brochure-slps.pdf" 
                                 className="px-8 py-3 bg-white border border-[#3349df] text-[#3349df] rounded-full font-semibold text-lg hover:bg-[#eef1ff] transition-colors"

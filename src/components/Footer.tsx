@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '@/assets/PHOTO-2025-09-09-18-41-53-removebg-preview.png';
 import { Link } from 'react-router-dom';
 // Re-import the necessary particle components
 import Particles, { initParticlesEngine } from "@tsparticles/react";
@@ -130,13 +131,8 @@ const Footer: React.FC = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           
           {/* Logo & Tagline */}
-            <div>
-            <img 
-              src="src/assets/PHOTO-2025-09-09-18-41-53-removebg-preview.png" 
-              alt="Empodera Logo White" 
-              
-            />
-           
+          <div>
+            <img src={logo} alt="Empodera Logo White" />
           </div>
 
           {/* Quick Links */}
@@ -155,7 +151,7 @@ const Footer: React.FC = () => {
             <h4 className="font-bold mb-4">Programmes</h4>
             <ul className="space-y-2 text-sm text-white/80">
               <li><Link to="/learnerships" className="hover:text-white transition-colors">Learnerships</Link></li>
-              <li><Link to="/slps" className="hover:text-white transition-colors">Short Programmes</Link></li>
+              <li><Link to="/short-programmes" className="hover:text-white transition-colors">Short Programmes</Link></li>
               <li><Link to="/masterclasses" className="hover:text-white transition-colors">Masterclasses</Link></li>
               <li>Custom Solutions</li>
             </ul>

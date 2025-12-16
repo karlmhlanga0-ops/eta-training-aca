@@ -25,7 +25,7 @@ const LearnershipCard: React.FC<{ programme: Programme; onEnquire: (id: string) 
 
         <div className="mt-auto flex gap-3">
             <button onClick={() => setOpen(!open)} className="px-4 py-2 border border-gray-200 rounded-md text-sm text-gray-700 hover:bg-gray-50">{open ? 'Hide details' : 'Read more'}</button>
-            <button onClick={() => onEnquire(programme.id)} className="ml-auto px-4 py-2 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-full font-semibold text-sm">Enquire / Enrol Now</button>
+            <button onClick={() => onEnquire(programme.id)} className="ml-auto px-4 py-2 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-full font-semibold text-sm">Apply Now</button>
         </div>
 
         {open && (

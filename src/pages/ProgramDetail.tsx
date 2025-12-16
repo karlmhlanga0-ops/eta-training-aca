@@ -28,7 +28,13 @@ const ProgramDetail: React.FC = () => {
                 <div className="max-w-6xl mx-auto px-6 text-center">
                     <span className="text-sm font-semibold uppercase text-[#3349df] tracking-widest bg-[#eef1ff] py-1 px-4 rounded-full mb-4 inline-block">Learnership Qualification</span>
                     <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">{programme.name}</h1>
-                    <p className="text-lg text-gray-600">SAQA ID {programme.saqa_id} | NQF Level {programme.nqf_level}</p>
+                                        <p className="text-lg text-gray-600">
+                                            {programme.category !== 'Short Programme' && (programme.saqa_id || programme.nqf_level) ? (
+                                                <>SAQA ID {programme.saqa_id} | NQF Level {programme.nqf_level}</>
+                                            ) : (
+                                                <>&nbsp;</>
+                                            )}
+                                        </p>
                     <div className="flex justify-center space-x-8 text-lg font-medium text-gray-700 mt-4">
                         <div className="flex items-center"><Clock className="w-5 h-5 mr-2 text-[#3349df]" /> <span>Duration: {programme.duration}</span></div>
                         <div className="flex items-center"><Target className="w-5 h-5 mr-2 text-[#3349df]" /> <span>Format: {programme.format}</span></div>
@@ -122,6 +128,8 @@ const ProgramDetail: React.FC = () => {
                         </div>
 
                         <button onClick={() => setModalOpen(true)} className="block w-full text-center py-3 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-xl font-bold">Inquire / Enrol Now</button>
+
+                        <button onClick={() => window.dispatchEvent(new CustomEvent('openApply', { detail: { programmeId: programme.id } }))} className="block w-full text-center py-3 bg-white/5 mt-4 text-[#3349df] rounded-xl font-bold border border-[#3349df]">Apply Now</button>
 
                         <EasyQuoteModal isOpen={modalOpen} onClose={() => setModalOpen(false)} initialProgramId={programme.id} />
 
