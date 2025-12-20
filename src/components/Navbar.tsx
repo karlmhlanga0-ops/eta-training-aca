@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
-import EasyQuoteModal from '@/components/EasyQuoteModal';
 
 // Define the full navigation structure with paths matching App.tsx
   const navLinks = [
@@ -17,7 +16,6 @@ import EasyQuoteModal from '@/components/EasyQuoteModal';
   },
   // Note: I assume you will add a route for /about in App.tsx, which should route to AboutPage
   { name: 'About Us', href: '/about' }, 
-  { name: 'Contact', href: '/contact-us' },
 ];
 
 interface DropdownLinkProps {
@@ -108,7 +106,6 @@ const DropdownLink: React.FC<DropdownLinkProps> = ({ name, links, isMobile, onCl
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const logoUrl = "https://d64gsuwffb70l.cloudfront.net/689f069373db79e875d8de8a_1760338302628_a7cf9aea.png";
 
@@ -158,10 +155,10 @@ const Navbar: React.FC = () => {
               );
             })}
             
-            {/* Primary CTA Button (Generate Quote) */}
-            <button onClick={() => setIsModalOpen(true)} className="ml-6 px-6 py-2.5 text-sm bg-primary text-white rounded-full font-bold shadow-lg hover:bg-secondary transition-all duration-300 transform hover:-translate-y-0.5">
-              Generate Quote
-            </button>
+            {/* Primary CTA Button (Contact Us) - replaced Generate Quote */}
+            <Link to="/contact" className="ml-6 px-6 py-2.5 text-sm bg-primary text-white rounded-full font-bold shadow-lg hover:bg-secondary transition-all duration-300 transform hover:-translate-y-0.5">
+              Contact Us
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -208,14 +205,14 @@ const Navbar: React.FC = () => {
               );
             })}
             
-            {/* Mobile CTA Button */}
-            <button onClick={() => { setIsModalOpen(true); toggleMenu(); }} className="block w-full mt-4 px-4 py-3 text-base text-center bg-primary text-white rounded-lg font-bold shadow-lg hover:bg-secondary transition-colors duration-300">
-              Generate Quote
-            </button>
+            {/* Mobile CTA Button (Contact) */}
+            <Link to="/contact" onClick={toggleMenu} className="block w-full mt-4 px-4 py-3 text-base text-center bg-primary text-white rounded-lg font-bold shadow-lg hover:bg-secondary transition-colors duration-300">
+              Contact Us
+            </Link>
           </div>
         </div>
       )}
-      {isModalOpen && <EasyQuoteModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
+      {/* EasyQuote modal removed from Navbar; Contact page handles inquiries */}
     </nav>
   );
 };

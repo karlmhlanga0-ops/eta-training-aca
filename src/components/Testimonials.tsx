@@ -78,7 +78,7 @@ const ClientProof: React.FC = () => {
           <div className="bg-[#3349df] text-white p-10 rounded-2xl shadow-2xl relative">
             <Quote className="w-12 h-12 absolute -top-4 -left-4 text-white/50" />
             <p className="text-3xl font-light italic text-center leading-snug">
-              "Through our learnerships, **SPAR** achieved a **90% completion rate**, absorbed **65% of learners** into permanent roles, and improved B-BBEE Skills Development points significantly."
+              "Through our learnerships, SPAR achieved a 90% completion rate, absorbed 65% of learners into permanent roles, and improved B-BBEE Skills Development points significantly."
             </p>
           </div>
         </div>

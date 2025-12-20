@@ -138,12 +138,11 @@ const Footer: React.FC = () => {
           {/* Quick Links */}
           <div>
             <h4 className="font-bold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/" className="hover:text-white/80 transition-colors">Home</Link></li>
-              <li><Link to="/learnerships" className="hover:text-white/80 transition-colors">Programmes</Link></li>
-              <li><Link to="/about" className="hover:text-white/80 transition-colors">About Us</Link></li>
-              <li><Link to="/contact" className="hover:text-white/80 transition-colors">Contact</Link></li>
-            </ul>
+                        <ul className="space-y-2 text-sm">
+                            <li><Link to="/learnerships" className="hover:text-white/80 transition-colors">Programmes</Link></li>
+                            <li><Link to="/about" className="hover:text-white/80 transition-colors">About Us</Link></li>
+                            <li><Link to="/contact" className="hover:text-white/80 transition-colors">Contact</Link></li>
+                        </ul>
           </div>
 
           {/* Programmes */}
@@ -153,7 +152,7 @@ const Footer: React.FC = () => {
               <li><Link to="/learnerships" className="hover:text-white transition-colors">Learnerships</Link></li>
               <li><Link to="/short-programmes" className="hover:text-white transition-colors">Short Programmes</Link></li>
               <li><Link to="/masterclasses" className="hover:text-white transition-colors">Masterclasses</Link></li>
-              <li>Custom Solutions</li>
+              <li><Link to="/contact" className="hover:text-white transition-colors">Custom Solutions</Link></li>
             </ul>
           </div>
 
@@ -164,15 +163,14 @@ const Footer: React.FC = () => {
             <p className="text-sm text-white/80 mb-1">Block A</p>
             <p className="text-sm text-white/80 mb-3">Sandton</p>
             {/* END UPDATED ADDRESS DETAILS */}
-            <p className="text-sm text-white/80 mb-2">info@empodera.co.za</p>
-            <p className="text-sm text-white/80">+27 11 123 4567</p>
+            <p className="text-sm text-white/80 mb-2"><Link to="/contact" className="hover:text-white/80">info@empoderata.net</Link></p>
           </div>
         </div>
 
         <div className="border-t border-white/20 pt-8 text-center text-sm">
           <p className="mb-2">© 2025 Empodera Training Academy. All rights reserved.</p>
           <p className="text-white/60">
-            Site powered by <a href="https://octothorp.online" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">EasyQuote (ODS)</a>
+            Site powered by <a href="https://easyquote.octothorp.online" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">EasyQuote (ODS)</a>
           </p>
         </div>
       </div>

@@ -7,9 +7,9 @@ const GrowthFramework: React.FC = () => {
     { letter: 'G', title: 'Grounding', desc: 'Building foundational skills and knowledge' },
     { letter: 'R', title: 'Readiness', desc: 'Preparing learners for real-world challenges' },
     { letter: 'O', title: 'Opportunities', desc: 'Creating pathways for career advancement' },
-    { letter: 'W', title: 'Work-Integrated Learning', desc: 'Hands-on experience in real environments' },
+    { letter: 'W', title: 'Work', desc: 'Work-Integrated Learning. Hands-on experience in real environments' },
     { letter: 'T', title: 'Transformation', desc: 'Driving personal and professional growth' },
-    { letter: 'H', title: 'Holistic Development', desc: 'Nurturing complete skill ecosystems' }
+    { letter: 'H', title: 'Holistic', desc: 'Nurturing complete skill ecosystems' }
   ];
 
   return (

@@ -135,8 +135,7 @@ const ProgramDetail: React.FC = () => {
 
                         <div className="p-6 bg-white rounded-xl border border-gray-100">
                             <h5 className="font-semibold mb-2">Contact Us</h5>
-                            <p className="text-sm text-gray-700"><Mail className="inline-block mr-2" /> info@empodera.co.za</p>
-                            <p className="text-sm text-gray-700"><Phone className="inline-block mr-2" /> +27 76 181 5155</p>
+                            <p className="text-sm text-gray-700"><Mail className="inline-block mr-2" /> info@empoderata.net</p>
                         </div>
                     </div>
                 </aside>

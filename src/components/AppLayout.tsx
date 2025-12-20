@@ -11,6 +11,17 @@ import Footer from './Footer';
 
 const AppLayout: React.FC = () => {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [quoteTopic, setQuoteTopic] = useState<string | undefined>(undefined);
+
+  React.useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent).detail || {};
+      setQuoteTopic(detail.topic || detail.programmeId || undefined);
+      setIsQuoteModalOpen(true);
+    };
+    window.addEventListener('openQuote', handler as EventListener);
+    return () => window.removeEventListener('openQuote', handler as EventListener);
+  }, []);
 
   const scrollToProgrammes = () => {
     const element = document.getElementById('programmes');
@@ -34,7 +45,8 @@ const AppLayout: React.FC = () => {
       
       <EasyQuoteModal 
         isOpen={isQuoteModalOpen}
-        onClose={() => setIsQuoteModalOpen(false)}
+        onClose={() => { setIsQuoteModalOpen(false); setQuoteTopic(undefined); }}
+        initialTopic={quoteTopic}
       />
     </div>
   );

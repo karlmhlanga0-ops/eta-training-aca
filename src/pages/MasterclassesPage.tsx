@@ -35,10 +35,8 @@ const MasterclassesPage: React.FC = () => {
 
     // Placeholder for your EasyQuote Modal function
     const handleQuoteClick = (topicSlug: string) => {
-        // ⚠️ Replace this with the actual function call to open your EasyQuote modal
-        console.log(`Triggering EasyQuote modal for topic: ${topicSlug}`);
-        alert(`Quote generation requested for: ${topicSlug}. (Placeholder action)`);
-        // Example: openEasyQuoteModal(topicSlug); 
+        // Trigger global quote modal and prefill topic
+        window.dispatchEvent(new CustomEvent('openQuote', { detail: { topic: topicSlug } }));
     };
 
 

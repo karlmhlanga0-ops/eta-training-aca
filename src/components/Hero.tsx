@@ -155,7 +155,7 @@ const Hero: React.FC<HeroProps> = ({ onExploreClick, onQuoteClick }) => {
           Empower Your Workforce.<br />Transform Your Future.
         </h1>
         <p className="text-xl md:text-2xl mb-10 font-light max-w-3xl mx-auto opacity-95">
-          Empodera Training Academy combines accredited learning with digital tools to help organisations unlock talent and performance.
+          Empodera Training Academy combines accredited learning with digital tools to help organisations unlock talent.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/learnerships" className="px-8 py-4 bg-white text-[#3349df] rounded-full font-semibold text-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">Explore Programmes</Link>

@@ -13,7 +13,7 @@ const ContactSection: React.FC = () => {
     e.preventDefault();
     
     // Simple mailto for general inquiries
-    window.location.href = `mailto:info@empodera.co.za?subject=General Inquiry from ${formData.name}&body=Name: ${formData.name}%0AEmail: ${formData.email}%0A%0AMessage:%0A${formData.message}`;
+    window.location.href = `mailto:info@empoderata.net?subject=General Inquiry from ${formData.name}&body=Name: ${formData.name}%0AEmail: ${formData.email}%0A%0AMessage:%0A${formData.message}`;
     
     setFormData({ name: '', email: '', message: '' });
   };
@@ -25,8 +25,7 @@ const ContactSection: React.FC = () => {
 
   // Simplified contact data structure for cleaner display
   const contactDetails = [
-    { icon: Mail, value: 'info@empodera.co.za', href: 'mailto:info@empodera.co.za' },
-    { icon: Phone, value: '+27 11 123 4567', href: 'tel:+27111234567' },
+    { icon: Mail, value: 'info@empoderata.net', href: 'mailto:info@empoderata.net' },
   ];
 
   return (

@@ -35,13 +35,13 @@ const serviceTiles = [
       title: 'Hosting Services', 
       desc: 'Acting as a host employer for learners where companies cannot place them directly, ensuring compliance and meaningful workplace experience.', 
       icon: Building2,
-      image: 'https://placehold.co/800x600/3349df/ffffff?text=Hosting+Services' 
+            image: 'https://d64gsuwffb70l.cloudfront.net/68eca18a5084cb1aee71fbcc_1760338384689_f4ca5fee.webp'
     },
     { 
       title: 'Recruitment Services', 
       desc: 'Connecting companies with trained, work-ready graduates and learners to fill critical skills gaps quickly and effectively.', 
       icon: UserPlus,
-      image: 'https://placehold.co/800x600/3b82f6/ffffff?text=Recruitment+Solutions' 
+            image: 'https://d64gsuwffb70l.cloudfront.net/68eca18a5084cb1aee71fbcc_1760338387090_65fc64d1.webp'
     }
 ];
 

@@ -7,9 +7,10 @@ interface EasyQuoteModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialProgramId?: string;
+  initialTopic?: string | undefined;
 }
 
-const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initialProgramId }) => {
+const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initialProgramId, initialTopic }) => {
   const [formData, setFormData] = useState({
     company: '',
     fullName: '',
@@ -17,6 +18,7 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
     email: '',
     contactNumber: '',
     programSlug: initialProgramId || LEARNERSHIP_DATA[0]?.id || '',
+    topic: initialTopic || '',
     learners: 10,
     mode: 'Online'
   });
@@ -27,6 +29,12 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
     () => getProgrammeBySlug(formData.programSlug),
     [formData.programSlug]
   );
+
+  React.useEffect(() => {
+    if (initialTopic) {
+      setFormData((s) => ({ ...s, topic: initialTopic }));
+    }
+  }, [initialTopic]);
 
   const priceMap: Record<string, number> = {
     PRICE_12_MONTHS,
@@ -71,7 +79,7 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
       setSuccessMessage(data.message || 'Thanks — your quote request was received. Our team will contact you within 24-48 hours.');
     } catch (err) {
       console.error('Failed to submit quote:', err);
-      setSuccessMessage('Quote submission failed. Please try again or contact us directly at info@empodera.co.za');
+      setSuccessMessage('Quote submission failed. Please try again or contact us directly at info@empoderata.net');
     } finally {
       setSubmitting(false);
       // keep modal open so user can see success message; auto-close after a short delay
@@ -103,6 +111,12 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
             <label className="block text-sm font-semibold text-gray-700 mb-2">Company Name</label>
             <input type="text" value={formData.company} onChange={(e) => setFormData({...formData, company: e.target.value})} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3349df] focus:border-transparent" />
           </div>
+          {formData.topic && (
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Selected Topic</label>
+              <input type="text" readOnly value={formData.topic} className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50" />
+            </div>
+          )}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
             <input type="text" required value={formData.fullName} onChange={(e) => setFormData({...formData, fullName: e.target.value})} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3349df] focus:border-transparent" />
@@ -167,7 +181,7 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
           </button>
 
           <p className="text-xs text-center text-gray-500">
-            Powered by <a href="https://octothorp.online" target="_blank" rel="noopener noreferrer" className="text-[#3349df] hover:underline">EasyQuote — Build your own at octothorp.online</a>
+            Powered by <a href="https://easyquote.octothorp.online" target="_blank" rel="noopener noreferrer" className="text-[#3349df] hover:underline">EasyQuote — Build your own at easyquote.octothorp.online</a>
           </p>
         </form>
       </div>

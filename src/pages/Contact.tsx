@@ -19,19 +19,19 @@ const ContactPage: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Placeholder for form submission logic (e.g., API call)
-        console.log('Form submitted:', formData);
-        
-        // Use a custom modal or message box instead of alert()
+        // Open user's mail client addressed to the correct inbox with prefilled content
+        const subject = encodeURIComponent(`General Inquiry from ${formData.name}`);
+        const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+        window.location.href = `mailto:info@empoderata.net?subject=${subject}&body=${body}`;
+
+        // Show a small in-page confirmation
         const messageBox = document.getElementById('submission-message');
         if (messageBox) {
-            messageBox.innerHTML = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert"><strong class="font-bold">Success!</strong><span class="block sm:inline ml-2">Thank you for your inquiry! We will be in touch shortly.</span></div>';
-            setTimeout(() => {
-                messageBox.innerHTML = '';
-            }, 5000);
+            messageBox.innerHTML = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert"><strong class="font-bold">Opened mail client</strong><span class="block sm:inline ml-2">Your default mail app should open to send the inquiry.</span></div>';
+            setTimeout(() => { messageBox.innerHTML = ''; }, 6000);
         }
 
-        setFormData({ name: '', email: '', message: '' }); // Clear form
+        setFormData({ name: '', email: '', message: '' });
     };
 
     return (
@@ -61,15 +61,7 @@ const ContactPage: React.FC = () => {
                                 <Mail className="w-6 h-6 text-secondary flex-shrink-0 mt-1" />
                                 <div>
                                     <p className="font-semibold text-lg text-text-dark">Email Support</p>
-                                    <a href="mailto:info@empodera.co.za" className="text-gray-600 hover:text-primary transition-colors">info@empodera.co.za</a>
-                                </div>
-                            </div>
-                            
-                            <div className="flex items-start space-x-4">
-                                <Phone className="w-6 h-6 text-secondary flex-shrink-0 mt-1" />
-                                <div>
-                                    <p className="font-semibold text-lg text-text-dark">Call Us</p>
-                                    <a href="tel:+27115551234" className="text-gray-600 hover:text-primary transition-colors">+27 11 555 1234</a>
+                                    <a href="/contact" className="text-gray-600 hover:text-primary transition-colors">Contact page</a>
                                 </div>
                             </div>
 
@@ -77,25 +69,8 @@ const ContactPage: React.FC = () => {
                                 <MapPin className="w-6 h-6 text-secondary flex-shrink-0 mt-1" />
                                 <div>
                                     <p className="font-semibold text-lg text-text-dark">Head Office</p>
-                                    <p className="text-gray-600">123 Training House, Sandton Drive,<br/> Johannesburg, South Africa</p>
+                                    <p className="text-gray-600">36 Wierda Road West, Wierda Valley, Sandton, 2196</p>
                                 </div>
-                            </div>
-                        </div>
-
-                        {/* Social Media Links Placeholder */}
-                         <div className="pt-4">
-                            <h4 className="text-xl font-bold text-text-dark mb-4">Follow Us</h4>
-                            <div className="flex space-x-4">
-                                <a href="#" aria-label="LinkedIn" className="text-gray-400 hover:text-primary transition-colors">
-                                    <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M16 8a6 6 0 0 0-6 6v7H7v-7a9 9 0 0 1 9-9h.5V8zM4 11h3v10H4V11zM5.5 8a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
-                                    </svg>
-                                </a>
-                                <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-primary transition-colors">
-                                    <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14.015 2H9.985C7.78 2 6 3.78 6 5.985v3.297H4v4.717h2v7.016h5v-7.016h3.015l.5-4.717H11.015V6.75c0-.853.305-1.428 1.455-1.428h2.008V2.417c-.346-.052-1.523-.207-2.946-.207-2.92 0-4.912 1.776-4.912 5.044v2.96H4V13h2v7.016h5v-7.016h3.015l.5-4.717H11.015V6.75c0-.853.305-1.428 1.455-1.428h2.008V2.417z"/>
-                                    </svg>
-                                </a>
                             </div>
                         </div>
 
@@ -167,11 +142,15 @@ const ContactPage: React.FC = () => {
                 </div>
             </section>
             
-            {/* Location Map Placeholder */}
+            {/* Location Map */}
             <section className="h-96 w-full">
-                <div className="bg-gray-200 h-full w-full flex items-center justify-center text-gray-500 font-medium text-xl">
-                    [Placeholder for Interactive Location Map]
-                </div>
+                <iframe
+                    title="Empodera Office Location"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.5187333402105!2d28.0542929!3d-26.1146244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950cd2050136f7%3A0xa86bd2e29314cd42!2s36%20Wierda%20Rd%20W%2C%20Wierda%20Valley%2C%20Sandton%2C%202196!5e0!3m2!1sen!2sza!4v1761111733154!5m2!1sen!2sza"
+                    className="w-full h-full border-0"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                />
             </section>
         </div>
     );

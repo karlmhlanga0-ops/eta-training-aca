@@ -22,7 +22,7 @@ const ServiceOverview: React.FC = () => {
       image: 'https://d64gsuwffb70l.cloudfront.net/68eca18a5084cb1aee71fbcc_1760338385583_9a4575dd.webp' 
     },
     {
-      title: 'Short Learning Programmes (SLPs)',
+      title: 'Short Learning Programmes',
       subtitle: 'Focused 2-day to 12-week interventions',
       description: 'Targeted short courses designed to rapidly upskill teams in specific, critical areas without requiring a long-term commitment.',
       icon: Zap,

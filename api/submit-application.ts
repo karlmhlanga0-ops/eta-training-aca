@@ -10,7 +10,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const body = req.body || {};
-    const to = process.env.SENDGRID_TO || 'info@empoderata.co.za';
+    const to = process.env.SENDGRID_TO || 'info@empoderata.net';
     const from = process.env.SENDGRID_FROM || 'info@empoderata.net';
 
     const {

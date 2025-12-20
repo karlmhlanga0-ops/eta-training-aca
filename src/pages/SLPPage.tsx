@@ -26,12 +26,12 @@ const SLPCard: React.FC<{ title: string; slug: string; duration: string }> = ({ 
             <span className="flex items-center"><TrendingUp className="w-4 h-4 mr-2 text-[#3349df]" /> Immediate Impact</span>
         </div>
 
-        <Link 
-            to={`/slps/${slug}`} 
-            className="block w-full text-center py-2 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-full font-semibold hover:opacity-90 transition-opacity"
+        <button
+            disabled
+            className="block w-full text-center py-2 bg-gray-200 text-gray-500 rounded-full font-semibold cursor-not-allowed"
         >
-            View Programme Details
-        </Link>
+            Details coming soon
+        </button>
     </div>
 );
 
