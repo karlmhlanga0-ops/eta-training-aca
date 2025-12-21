@@ -5,6 +5,7 @@ import { VercelRequest, VercelResponse } from '@vercel/node';
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import { FieldValue, Timestamp } from 'firebase-admin/firestore';
+import sgMail from '@sendgrid/mail';
 
 // Initialize Firebase Admin SDK using environment variables
 function getFirebaseAdmin() {
@@ -79,15 +80,46 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       console.log(`Quote saved for ${email}`);
     }
 
-    // Placeholder: Send email notification to sales team
-    // Example: Call SendGrid API or similar
-    // const salesEmail = process.env.SALES_EMAIL || 'sales@empodera.co.za';
-    // await sendEmailNotification({
-    //   to: salesEmail,
-    //   subject: `New Quote Request from ${fullName}`,
-    //   body: `Company: ${company}\nEmail: ${email}\nProgram: ${programName}\nLearners: ${learners}\nTotal: R${total}`
-    // });
-    console.log(`[PLACEHOLDER] Email notification for new quote would be sent to sales team.`);
+    // Send email to client and CC info@empoderata.net
+    const sendgridKey = process.env.SENDGRID_API_KEY;
+    const sendFrom = process.env.SENDGRID_FROM || 'info@empoderata.net';
+
+    if (sendgridKey) {
+      sgMail.setApiKey(sendgridKey);
+
+      const htmlBody = `
+        <p>Hi ${fullName},</p>
+        <p>Thank you for requesting a quote. Here are the details:</p>
+        <ul>
+          <li><strong>Company:</strong> ${company || 'N/A'}</li>
+          <li><strong>Contact:</strong> ${fullName} (${position || 'N/A'})</li>
+          <li><strong>Email:</strong> ${email}</li>
+          <li><strong>Contact Number:</strong> ${contactNumber || 'N/A'}</li>
+          <li><strong>Program:</strong> ${programName || programId}</li>
+          <li><strong>Learners:</strong> ${learners}</li>
+          <li><strong>Per Learner:</strong> ${perLearner || 'N/A'}</li>
+          <li><strong>Total:</strong> R${total}</li>
+        </ul>
+        <p>Our team will be in touch within 24-48 hours.</p>
+        <p>Regards,<br/>Empodera Team</p>
+      `;
+
+      try {
+        await sgMail.send({
+          to: email,
+          from: sendFrom,
+          subject: `Your quote for ${programName || 'requested programme'}`,
+          html: htmlBody,
+          cc: 'info@empoderata.net',
+        });
+
+        console.log(`Quote email sent to client ${email} (cc: info@empoderata.net)`);
+      } catch (err) {
+        console.error('Error sending quote email:', err);
+      }
+    } else {
+      console.warn('SENDGRID_API_KEY not set - skipping email send');
+    }
 
     res.status(200).json({
       success: true,

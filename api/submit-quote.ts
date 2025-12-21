@@ -105,6 +105,38 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       } catch (err) {
         console.warn('SendGrid send failed:', (err as any)?.message || err);
       }
+
+      // Also send the client a copy of their quote (cc info@empoderata.net)
+      try {
+        const clientHtml = `
+          <p>Hi ${fullName},</p>
+          <p>Thank you for requesting a quote. Below are the details we received:</p>
+          <ul>
+            <li><strong>Company:</strong> ${company || 'N/A'}</li>
+            <li><strong>Contact:</strong> ${fullName} (${position || 'N/A'})</li>
+            <li><strong>Email:</strong> ${email}</li>
+            <li><strong>Contact Number:</strong> ${contactNumber || 'N/A'}</li>
+            <li><strong>Program:</strong> ${programName || programId}</li>
+            <li><strong>Learners:</strong> ${learners}</li>
+            <li><strong>Per Learner:</strong> R${perLearner}</li>
+            <li><strong>Total:</strong> R${total}</li>
+          </ul>
+          <p>Our team will contact you within 24-48 hours.</p>
+          <p>Regards,<br/>Empodera Team</p>
+        `;
+
+        await sgMail.send({
+          to: email,
+          from: sendFrom,
+          subject: `Your quote request — ${programName || programId}`,
+          html: clientHtml,
+          cc: 'info@empoderata.net',
+        } as any);
+
+        console.log(`SendGrid: client copy sent to ${email} (cc info@empoderata.net)`);
+      } catch (err) {
+        console.warn('SendGrid client copy failed:', (err as any)?.message || err);
+      }
     } else {
       console.log(`Quote ${docRef.id} saved. SendGrid not configured.`);
     }
