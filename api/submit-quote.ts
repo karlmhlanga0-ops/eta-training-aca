@@ -99,11 +99,28 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           </ul>`
       };
 
+      // send with retry and improved logging
+      const sendWithRetry = async (message: any, attempts = 3) => {
+        let lastErr: any = null;
+        for (let i = 0; i < attempts; i++) {
+          try {
+            await sgMail.send(message);
+            return true;
+          } catch (e) {
+            lastErr = e;
+            console.warn(`SendGrid attempt ${i + 1} failed:`, (e as any)?.message || e);
+            await new Promise((r) => setTimeout(r, 200 * (i + 1)));
+          }
+        }
+        console.error('SendGrid failed after retries:', lastErr);
+        return false;
+      };
+
       try {
-        await sgMail.send(msg as any);
-        console.log(`SendGrid: notification sent to ${sendTo}`);
-      } catch (err) {
-        console.warn('SendGrid send failed:', (err as any)?.message || err);
+        const ok = await sendWithRetry(msg, 3);
+        if (ok) console.log(`SendGrid: notification sent to ${sendTo}`);
+      } catch (e) {
+        console.warn('SendGrid notification failed:', (e as any)?.message || e);
       }
 
       // Also send the client a copy of their quote (cc info@empoderata.net)
@@ -125,15 +142,16 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           <p>Regards,<br/>Empodera Team</p>
         `;
 
-        await sgMail.send({
+        const clientMsg = {
           to: email,
           from: sendFrom,
           subject: `Your quote request — ${programName || programId}`,
           html: clientHtml,
           cc: 'info@empoderata.net',
-        } as any);
+        } as any;
 
-        console.log(`SendGrid: client copy sent to ${email} (cc info@empoderata.net)`);
+        const okClient = await sendWithRetry(clientMsg, 3);
+        if (okClient) console.log(`SendGrid: client copy sent to ${email} (cc info@empoderata.net)`);
       } catch (err) {
         console.warn('SendGrid client copy failed:', (err as any)?.message || err);
       }

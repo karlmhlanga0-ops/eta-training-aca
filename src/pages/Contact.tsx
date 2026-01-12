@@ -80,7 +80,7 @@ const ContactPage: React.FC = () => {
                     {/* Column 2 & 3: Contact Form */}
                     <div className="lg:col-span-2 bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100">
                         <div id="submission-message" className="mb-4"></div>
-                        <h3 className="text-2xl font-bold text-text-dark mb-6">Send Us A Message</h3>
+                        <h3 className="text-2xl font-bold text-text-dark mb-6">Send Us A Message Or Two</h3>
                         <form onSubmit={handleSubmit} className="space-y-6">
                             
                             {/* Name Input */}

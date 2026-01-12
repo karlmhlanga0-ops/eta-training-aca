@@ -104,19 +104,33 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         <p>Regards,<br/>Empodera Team</p>
       `;
 
-      try {
-        await sgMail.send({
-          to: email,
-          from: sendFrom,
-          subject: `Your quote for ${programName || 'requested programme'}`,
-          html: htmlBody,
-          cc: 'info@empoderata.net',
-        });
+      // send with a simple retry loop
+      const sendWithRetry = async (msg: any, attempts = 3) => {
+        let lastErr: any = null;
+        for (let i = 0; i < attempts; i++) {
+          try {
+            await sgMail.send(msg);
+            return true;
+          } catch (e) {
+            lastErr = e;
+            console.warn(`SendGrid attempt ${i + 1} failed:`, (e as any)?.message || e);
+            await new Promise((r) => setTimeout(r, 200 * (i + 1)));
+          }
+        }
+        console.error('SendGrid failed after retries:', lastErr);
+        return false;
+      };
 
-        console.log(`Quote email sent to client ${email} (cc: info@empoderata.net)`);
-      } catch (err) {
-        console.error('Error sending quote email:', err);
-      }
+      const msg = {
+        to: email,
+        from: sendFrom,
+        subject: `Your quote for ${programName || 'requested programme'}`,
+        html: htmlBody,
+        cc: 'info@empoderata.net',
+      } as any;
+
+      const sent = await sendWithRetry(msg, 3);
+      if (sent) console.log(`Quote email sent to client ${email} (cc: info@empoderata.net)`);
     } else {
       console.warn('SENDGRID_API_KEY not set - skipping email send');
     }
