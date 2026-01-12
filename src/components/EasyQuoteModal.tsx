@@ -86,7 +86,7 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
       setTimeout(() => {
         setSuccessMessage(null);
         onClose();
-      }, 2500);
+      }, 5000);
     }
   };
 
