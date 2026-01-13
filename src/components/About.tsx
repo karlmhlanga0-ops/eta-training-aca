@@ -40,8 +40,7 @@ const About: React.FC = () => {
              Empowering Skills, Driving Growth
           </h2>
           <p className="text-lg text-gray-700 text-center leading-relaxed">
-            Empodera Training Academy is a **forward-thinking** skills development and training provider specializing in **accredited learnerships**, customised corporate solutions, and workforce development. We partner with leading South African organisations to deliver training that **drives transformation**, enhances workforce readiness, and ensures a **measurable ROI**.
-          </p>
+Empodera Training Academy is a <b>forward-thinking</b> skills development and training provider specializing in <b>accredited learnerships</b>, customised corporate solutions, and workforce development. We partner with leading South African organisations to deliver training that <b>drives transformation</b>, enhances workforce readiness, and ensures a <b>measurable ROI</b>.          </p>
         </div>
 
         {/* --- Slide 7: Absorption, Hosting, Recruitment Tiles --- */}

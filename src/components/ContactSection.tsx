@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Calculator, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import { Mail, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
+
+// Import your logos
+import tetaLogo from '@/assets/teta-logo.png';
+import insetaLogo from '@/assets/inseta-logo.png';
+import servicesLogo from '@/assets/services-logo.png';
+import qctoLogo from '@/assets/qtco-logo.jpg'; // Fixed typo from your list (qtco vs qcto)
+import saqaLogo from '@/assets/saqa-logo.png';
 
 const MAP_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.5714!2d28.0563!3d-26.1075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9573397!2s36%20Wierda%20Rd%20W!5e0!3m2!1sen!2sza!4v1700000000000";
 
 interface ContactSectionProps {
-  onOpenQuote: () => void; // Pass this in from App.tsx to open the modal
+  onOpenQuote: () => void;
 }
 
 const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) => {
@@ -12,6 +19,14 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) => {
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState<{type: 'success' | 'error', msg: string} | null>(null);
+
+  const accreditations = [
+    { name: 'TETA', src: tetaLogo },
+    { name: 'INSETA', src: insetaLogo },
+    { name: 'Services SETA', src: servicesLogo },
+    { name: 'QCTO', src: qctoLogo },
+    { name: 'SAQA', src: saqaLogo },
+  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,16 +86,24 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) => {
             </form>
           </div>
 
-          {/* Column 2: EasyQuote CTA */}
+          {/* Column 2: Accreditations (Replaced Quote CTA) */}
           <div className="space-y-8">
             <div className="bg-gradient-to-br from-[#3349df] to-[#2640c8] p-8 rounded-2xl shadow-xl text-white">
-              <Calculator className="w-12 h-12 mb-4 opacity-90" />
-              <h3 className="text-3xl font-bold mb-2">Need a Quote?</h3>
-              <p className="mb-6 opacity-90">Get an instant training cost estimate tailored for your team.</p>
-              <button onClick={onOpenQuote} className="flex items-center space-x-2 px-8 py-3 bg-white text-[#3349df] rounded-full font-bold hover:bg-gray-100 transition-all">
-                <span>Generate My EasyQuote</span>
-                <ArrowRight className="w-5 h-5" />
-              </button>
+              <h3 className="text-2xl font-bold mb-6 border-b border-white/20 pb-4">Accreditations & Alignment</h3>
+              
+              {/* Responsive Logo Grid */}
+              <div className="grid grid-cols-3 sm:grid-cols-3 gap-4 items-center">
+                {accreditations.map((logo) => (
+                  <div key={logo.name} className="bg-white p-2 rounded-lg flex items-center justify-center aspect-video overflow-hidden border border-white/10 shadow-sm">
+                    <img 
+                      src={logo.src} 
+                      alt={logo.name} 
+                      className="max-h-full max-w-full object-contain filter brightness-100 hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 text-sm opacity-80 italic">Fully compliant with South African regulatory standards.</p>
             </div>
 
             <div className="flex items-center space-x-4 p-2">

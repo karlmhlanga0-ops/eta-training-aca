@@ -33,7 +33,7 @@ const CorporateSolutions: React.FC<CorporateSolutionsProps> = ({ onQuoteClick })
               className="rounded-2xl shadow-2xl"
             />
             <div className="absolute -bottom-6 -left-6 bg-gradient-to-br from-[#3349df] to-[#2640c8] text-white p-6 rounded-xl shadow-xl">
-              <p className="text-3xl font-bold">500+</p>
+              <p className="text-3xl font-bold">100+</p>
               <p className="text-sm">Companies Trained</p>
             </div>
           </div>
