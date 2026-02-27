@@ -44,18 +44,31 @@ const DropdownLink: React.FC<DropdownLinkProps> = ({ name, links, isMobile, onCl
 
     // --- Desktop Dropdown ---
     if (!isMobile) {
+        let hideTimeout: ReturnType<typeof setTimeout>;
+
+        const handleMouseLeave = () => {
+            hideTimeout = setTimeout(() => {
+                setIsDropdownOpen(false);
+            }, 150);
+        };
+
+        const handleMouseEnter = () => {
+            clearTimeout(hideTimeout);
+            setIsDropdownOpen(true);
+        };
+
         return (
             <div 
-                className="relative group h-full flex items-center"
-                onMouseEnter={() => setIsDropdownOpen(true)}
-                onMouseLeave={() => setIsDropdownOpen(false)}
+                className="relative h-full flex items-center"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
             >
                 <Link
                   to={mainHref}
                   className="flex items-center text-text-dark hover:text-primary transition-colors px-3 py-2 rounded-md font-semibold"
                 >
                     {name}
-                    <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-150 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </Link>
                 {isDropdownOpen && (
                     <div className="absolute top-full mt-0.5 w-52 bg-white border border-gray-100 rounded-lg shadow-xl z-50 overflow-hidden animate-fade-in-up origin-top">

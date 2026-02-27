@@ -7,7 +7,7 @@
 
 @layer utilities {
   .animate-fade-in-up {
-    animation: fadeInUp 1s ease-out;
+    animation: fadeInUp 0.15s ease-out;
   }
 }
 

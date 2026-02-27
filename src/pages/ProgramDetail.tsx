@@ -129,8 +129,6 @@ const ProgramDetail: React.FC = () => {
 
                         <button onClick={() => setModalOpen(true)} className="block w-full text-center py-3 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-xl font-bold">Inquire / Enrol Now</button>
 
-                        <button onClick={() => window.dispatchEvent(new CustomEvent('openApply', { detail: { programmeId: programme.id } }))} className="block w-full text-center py-3 bg-white/5 mt-4 text-[#3349df] rounded-xl font-bold border border-[#3349df]">Apply Now</button>
-
                         {programme.brochure_url && (
                             <a href={programme.brochure_url} download className="flex items-center justify-center w-full py-3 mt-4 bg-white/5 text-[#3349df] rounded-xl font-bold border border-[#3349df] hover:bg-[#eef1ff] transition-colors">
                                 <Download className="w-5 h-5 mr-2" />
@@ -139,11 +137,6 @@ const ProgramDetail: React.FC = () => {
                         )}
 
                         <EasyQuoteModal isOpen={modalOpen} onClose={() => setModalOpen(false)} initialProgramId={programme.id} />
-
-                        <div className="p-6 bg-white rounded-xl border border-gray-100">
-                            <h5 className="font-semibold mb-2">Contact Us</h5>
-                            <p className="text-sm text-gray-700"><Mail className="inline-block mr-2" /> info@empoderata.net</p>
-                        </div>
                     </div>
                 </aside>
             </div>
