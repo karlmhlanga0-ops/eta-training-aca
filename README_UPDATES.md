@@ -79,7 +79,7 @@ Your Empodera Training Academy website has been enhanced with:
 ## Quick Reference
 
 ### Form API Endpoints
-- **Quote Submission**: POST `/api/submit-quote`
+- **Quote Submission**: POST `https://formspree.io/f/mreadqkw` (no local API call)
 - **Application Submission**: POST `/api/submit-application`
 
 ### SendGrid Setup

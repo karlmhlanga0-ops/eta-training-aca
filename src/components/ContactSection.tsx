@@ -34,15 +34,13 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) => {
     setStatus(null);
     
     try {
-      const res = await fetch('/api/submit-quote', { 
+      const res = await fetch('https://formspree.io/f/mreadqkw', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          fullName: formData.name,
+          name: formData.name,
           email: formData.email,
-          message: formData.message,
-          programId: 'GENERAL_INQUIRY',
-          programName: 'General Website Inquiry'
+          message: formData.message
         })
       });
 

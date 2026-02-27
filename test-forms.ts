@@ -104,7 +104,7 @@ async function testQuoteSubmission(quoteData: any, index: number) {
     console.log(`\n📤 Submitting quote ${index + 1}...`);
     console.log(`Company: ${quoteData.company}`);
 
-    const response = await fetch(`${API_BASE}/submit-quote`, {
+    const response = await fetch('https://formspree.io/f/mreadqkw', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(quoteData),

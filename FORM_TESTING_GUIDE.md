@@ -42,7 +42,7 @@ Your forms are configured but require **environment variables** to send emails t
 #### 1. **Easy Quote Modal** (`/components/EasyQuoteModal.tsx`)
    - **Location**: Quote buttons throughout the site
    - **Data collected**: Company, contact name, position, email, program, number of learners, estimated cost
-   - **API endpoint**: `/api/submit-quote`
+   - **Submission endpoint**: `https://formspree.io/f/mreadqkw` (replaces previous `/api/submit-quote`)
    - **Backend**: Stores to Firebase Firestore + emails via SendGrid
 
 #### 2. **Apply Now Modal** (`/components/ApplyNowModal.tsx`)

@@ -200,22 +200,29 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
       // Generate and download PDF immediately
       generateAndDownloadPDF();
 
-      // Submit to API (non-blocking)
-      const res = await fetch('/api/submit-quote', {
+      // Also send data to Formspree
+      const formRes = await fetch('https://formspree.io/f/mreadqkw', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          company: formData.company,
+          programName: selectedProgramme?.name || '',
+          learners: formData.learners,
+          total
+        })
       });
 
-      if (!res.ok) {
-        throw new Error(`API responded with status ${res.status}`);
+      if (formRes.ok) {
+        setSuccessMessage('✓ Your quote has been downloaded and sent. Our team will review it shortly.');
+      } else {
+        const errData = await formRes.json().catch(() => ({}));
+        console.error('Formspree error', errData);
+        setSuccessMessage('Quote downloaded. Submission failed, please contact info@empoderata.net');
       }
-
-      // Show success message
-      setSuccessMessage('✓ Check your downloads for your formal quote. Our team has also been notified.');
     } catch (err) {
-      console.error('Failed to submit quote:', err);
-      setSuccessMessage('Quote submitted (PDF downloaded). If the email notification failed, please contact info@empoderata.net');
+      console.error('Failed to submit quote via Formspree:', err);
+      setSuccessMessage('Quote downloaded. Submission error, please contact info@empoderata.net');
     } finally {
       setSubmitting(false);
       // Auto-close after a delay

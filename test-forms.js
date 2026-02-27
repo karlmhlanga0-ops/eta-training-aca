@@ -106,7 +106,7 @@ async function testQuoteSubmission(quoteData, index) {
     console.log(`   Company: ${quoteData.company}`);
     console.log(`   Contact: ${quoteData.fullName}`);
 
-    const response = await fetch(`${API_BASE}/api/submit-quote`, {
+    const response = await fetch('https://formspree.io/f/mreadqkw', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(quoteData),
