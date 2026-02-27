@@ -46,14 +46,15 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) => {
         })
       });
 
+      const data = await res.json().catch(() => ({}));
       if (res.ok) {
-        setStatus({ type: 'success', msg: "✓ Thanks for reaching out! We've got your message and will be in touch within 24 hours." });
+        setStatus({ type: 'success', msg: data.message || "✓ Thanks for reaching out! We've got your message and will be in touch within 24 hours." });
         setFormData({ name: '', email: '', message: '' });
-        
         // Auto-close success message after 4 seconds
         setTimeout(() => setStatus(null), 4000);
       } else {
-        throw new Error();
+        const msg = data.error || "Failed to send. Please email info@empoderata.net directly.";
+        setStatus({ type: 'error', msg });
       }
     } catch (err) {
       setStatus({ type: 'error', msg: "Failed to send. Please email info@empoderata.net directly." });

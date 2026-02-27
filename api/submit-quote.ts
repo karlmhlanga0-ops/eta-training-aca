@@ -6,22 +6,31 @@ import { VercelRequest, VercelResponse } from '@vercel/node';
 import * as admin from 'firebase-admin';
 import sgMail from '@sendgrid/mail';
 
-// Initialize Firebase Admin SDK
+// Initialize Firebase Admin SDK (non-blocking)
 if (!admin.apps.length) {
-  const serviceAccount = {
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-  } as any;
+  try {
+    const serviceAccount = {
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    } as any;
 
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
+    if (serviceAccount.projectId && serviceAccount.clientEmail && serviceAccount.privateKey) {
+      admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+      });
+    } else {
+      console.warn('Firebase service account not fully configured; skipping Firestore writes');
+    }
+  } catch (e) {
+    console.warn('Firebase initialization error (continuing without DB):', (e as any)?.message || e);
+  }
 }
 
 const db = admin.firestore();
 
 // Initialize SendGrid
+console.log('SendGrid key present:', Boolean(process.env.SENDGRID_API_KEY));
 if (process.env.SENDGRID_API_KEY) {
   try {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -95,6 +104,10 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     const docRef = await colRef.add(firestoreData);
 
     // Send emails via SendGrid
+    if (!process.env.SENDGRID_API_KEY) {
+      console.warn('No SendGrid key; skipping email');
+    }
+
     if (process.env.SENDGRID_API_KEY) {
       const emailFrom = process.env.EMAIL_FROM || 'info@empoderata.net';
       const notificationEmail = process.env.NOTIFICATION_EMAIL || 'info@empoderata.net';
@@ -160,7 +173,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         let lastErr: any = null;
         for (let i = 0; i < attempts; i++) {
           try {
-            await sgMail.send(message);
+            const r = await sgMail.send(message);
+            console.log('SendGrid send response:', r);
             return true;
           } catch (e) {
             lastErr = e;
@@ -176,6 +190,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         const adminOk = await sendWithRetry(adminMsg, 3);
         if (adminOk) {
           console.log(`SendGrid: admin notification sent to ${notificationEmail}`);
+        } else {
+          console.warn('SendGrid: admin notification ultimately failed');
         }
       } catch (e) {
         console.warn('SendGrid admin notification failed:', (e as any)?.message || e);
@@ -212,6 +228,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           const userOk = await sendWithRetry(userMsg, 3);
           if (userOk) {
             console.log(`SendGrid: confirmation sent to ${email}`);
+          } else {
+            console.warn('SendGrid: user confirmation ultimately failed');
           }
         } catch (err) {
           console.warn('SendGrid user confirmation failed:', (err as any)?.message || err);
@@ -238,6 +256,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           const inquiryOk = await sendWithRetry(inquiryMsg, 3);
           if (inquiryOk) {
             console.log(`SendGrid: inquiry confirmation sent to ${email}`);
+          } else {
+            console.warn('SendGrid: inquiry confirmation ultimately failed');
           }
         } catch (err) {
           console.warn('SendGrid inquiry confirmation failed:', (err as any)?.message || err);
@@ -253,6 +273,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         ? 'Quote submitted successfully' 
         : 'Inquiry submitted successfully',
       recordId: docRef.id,
+      sendgrid: Boolean(process.env.SENDGRID_API_KEY)
     });
   } catch (error) {
     console.error('Error processing request:', error);

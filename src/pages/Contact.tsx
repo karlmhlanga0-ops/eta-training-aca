@@ -9,6 +9,8 @@ const ContactPage: React.FC = () => {
         email: '',
         message: ''
     });
+    const [status, setStatus] = useState<{type:'success'|'error', msg:string} | null>(null);
+    const [submitting, setSubmitting] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({
@@ -17,21 +19,35 @@ const ContactPage: React.FC = () => {
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Open user's mail client addressed to the correct inbox with prefilled content
-        const subject = encodeURIComponent(`General Inquiry from ${formData.name}`);
-        const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-        window.location.href = `mailto:info@empoderata.net?subject=${subject}&body=${body}`;
-
-        // Show a small in-page confirmation
-        const messageBox = document.getElementById('submission-message');
-        if (messageBox) {
-            messageBox.innerHTML = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert"><strong class="font-bold">Opened mail client</strong><span class="block sm:inline ml-2">Your default mail app should open to send the inquiry.</span></div>';
-            setTimeout(() => { messageBox.innerHTML = ''; }, 6000);
+        setSubmitting(true);
+        setStatus(null);
+        try {
+            const res = await fetch('/api/submit-quote', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    fullName: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                    programId: 'GENERAL_INQUIRY',
+                    programName: 'General Website Inquiry'
+                })
+            });
+            const data = await res.json().catch(() => ({}));
+            if (res.ok) {
+                setStatus({ type: 'success', msg: data.message || "✓ Thanks for reaching out! We'll respond within 24 hours." });
+                setFormData({ name: '', email: '', message: '' });
+                setTimeout(() => setStatus(null), 4000);
+            } else {
+                setStatus({ type: 'error', msg: data.error || "Failed to send. Please email info@empoderata.net directly." });
+            }
+        } catch (err) {
+            setStatus({ type: 'error', msg: "Failed to send. Please email info@empoderata.net directly." });
+        } finally {
+            setSubmitting(false);
         }
-
-        setFormData({ name: '', email: '', message: '' });
     };
 
     return (
@@ -79,7 +95,11 @@ const ContactPage: React.FC = () => {
                     
                     {/* Column 2 & 3: Contact Form */}
                     <div className="lg:col-span-2 bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100">
-                        <div id="submission-message" className="mb-4"></div>
+                        {status && (
+                        <div className={`mb-4 p-4 rounded ${status.type === 'success' ? 'bg-green-50 border border-green-200 text-green-800' : 'bg-red-50 border border-red-200 text-red-800'}`}>
+                          {status.msg}
+                        </div>
+                    )}
                         <h3 className="text-2xl font-bold text-text-dark mb-6">Send Us A Message Or Two</h3>
                         <form onSubmit={handleSubmit} className="space-y-6">
                             
@@ -131,7 +151,8 @@ const ContactPage: React.FC = () => {
                             {/* Submit Button */}
                             <button
                                 type="submit"
-                                className="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-primary text-white font-bold rounded-lg shadow-md hover:bg-secondary transition-colors duration-300 transform hover:scale-[1.01]"
+                                disabled={submitting}
+                                className="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-primary text-white font-bold rounded-lg shadow-md hover:bg-secondary transition-colors duration-300 transform hover:scale-[1.01] disabled:opacity-50"
                             >
                                 <Send className="w-5 h-5" />
                                 <span>Send Inquiry</span>

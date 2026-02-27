@@ -10,8 +10,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const body = req.body || {};
-    const to = process.env.SENDGRID_TO || 'info@empoderata.net';
-    const from = process.env.SENDGRID_FROM || 'info@empoderata.net';
+    const to = process.env.NOTIFICATION_EMAIL || process.env.SENDGRID_TO || 'info@empoderata.net';
+    const from = process.env.EMAIL_FROM || process.env.SENDGRID_FROM || 'info@empoderata.net';
 
     const {
       fullName,
@@ -59,20 +59,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // If SendGrid not configured, just log and return success for dev
       console.warn('SendGrid not configured; skipping send');
       console.log('Application payload', { fullName, email, programmeId });
-      return res.status(200).json({ ok: true });
+      return res.status(200).json({ ok: true, sendgrid: false });
     }
 
     const msg: any = {
       to,
       from,
+      replyTo: email,
       subject: `New Learnership Application — ${fullName}`,
       html,
       attachments: attachmentsForSend
     };
 
-    await sgMail.send(msg);
+    try {
+      await sgMail.send(msg);
+      console.log('SendGrid: application email sent');
+    } catch (err: any) {
+      console.error('SendGrid application send error', err);
+      // continue, we don't want to fail user experience purely for email failure
+    }
 
-    return res.status(200).json({ ok: true });
+    return res.status(200).json({ ok: true, sendgrid: true });
   } catch (err: any) {
     console.error('submit-application error', err?.message || err);
     return res.status(500).json({ error: err?.message || 'Server error' });
