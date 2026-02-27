@@ -42,16 +42,16 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) => {
           email: formData.email,
           message: formData.message,
           programId: 'GENERAL_INQUIRY',
-          programName: 'General Website Inquiry',
-          learners: 0,
-          perLearner: 0,
-          total: 0
+          programName: 'General Website Inquiry'
         })
       });
 
       if (res.ok) {
-        setStatus({ type: 'success', msg: "Message sent! We'll get back to you shortly." });
+        setStatus({ type: 'success', msg: "✓ Thanks for reaching out! We've got your message and will be in touch within 24 hours." });
         setFormData({ name: '', email: '', message: '' });
+        
+        // Auto-close success message after 4 seconds
+        setTimeout(() => setStatus(null), 4000);
       } else {
         throw new Error();
       }

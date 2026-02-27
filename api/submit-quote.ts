@@ -1,13 +1,12 @@
 // api/submit-quote.ts
-// Vercel serverless function to handle quote form submissions.
-// Writes to Firestore collection /artifacts/{appId}/public/data/quotes
-// Includes placeholder for email notifications to sales team.
+// Unified Vercel serverless function for handling both EasyQuotes and General Inquiries
+// Saves to Firestore and sends emails via SendGrid
 
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import * as admin from 'firebase-admin';
 import sgMail from '@sendgrid/mail';
 
-// Initialize Firebase Admin SDK (uses credentials from environment)
+// Initialize Firebase Admin SDK
 if (!admin.apps.length) {
   const serviceAccount = {
     projectId: process.env.FIREBASE_PROJECT_ID,
@@ -22,7 +21,7 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-// Initialize SendGrid if API key is present (optional)
+// Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
   try {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -38,6 +37,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   try {
     const {
+      // Quote fields
       company,
       fullName,
       position,
@@ -49,60 +49,113 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       perLearner,
       total,
       deliveryMode,
+      // Inquiry fields
+      message,
     } = req.body;
 
     // Validate required fields
-    if (!fullName || !email || !programId || !learners) {
-      return res.status(400).json({ error: 'Missing required fields' });
+    if (!fullName || !email) {
+      return res.status(400).json({ error: 'Missing required fields: fullName and email are required' });
     }
 
     const appId = process.env.APP_ID || 'empodera';
-    const colPath = `artifacts/${appId}/public/data/quotes`;
+    
+    // Determine if this is a quote or inquiry
+    const isQuote = programId && (programId !== 'GENERAL_INQUIRY');
+    const collectionType = isQuote ? 'quotes' : 'inquiries';
+    const colPath = `artifacts/${appId}/public/data/${collectionType}`;
     const colRef = db.collection(colPath);
 
-    // Write quote data to Firestore
-    const docRef = await colRef.add({
-      company,
-      fullName,
-      position,
-      email,
-      contactNumber,
-      programId,
-      programName,
-      learners,
-      perLearner,
-      total,
-      deliveryMode,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    });
+    // Prepare data to save to Firestore
+    const firestoreData = isQuote 
+      ? {
+          type: 'EasyQuote',
+          company,
+          fullName,
+          position,
+          email,
+          contactNumber,
+          programId,
+          programName,
+          learners,
+          perLearner,
+          total,
+          deliveryMode,
+          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        }
+      : {
+          type: 'GeneralInquiry',
+          fullName,
+          email,
+          message,
+          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        };
 
-    // If SendGrid is configured, send a notification to sales (non-blocking)
+    // Write to Firestore
+    const docRef = await colRef.add(firestoreData);
+
+    // Send emails via SendGrid
     if (process.env.SENDGRID_API_KEY) {
-      const sendFrom = process.env.SENDGRID_FROM || 'info@empoderata.net';
-      const sendTo = process.env.SENDGRID_TO || 'info@empoderata.net';
+      const emailFrom = process.env.EMAIL_FROM || 'info@empoderata.net';
+      const notificationEmail = process.env.NOTIFICATION_EMAIL || 'info@empoderata.net';
 
-      const msg = {
-        to: sendTo,
-        from: sendFrom,
-        subject: `New Quote Request — ${programName || programId}`,
-        text: `New quote request\n\nFull Name: ${fullName}\nPosition: ${position || 'N/A'}\nContact Number: ${contactNumber || 'N/A'}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nProgram: ${programName || programId}\nDelivery Mode: ${deliveryMode || 'N/A'}\nLearners: ${learners}\nPer Learner: R${perLearner}\nTotal: R${total}\n\nFirestore: ${colPath}/${docRef.id}`,
-        html: `<h2>New Quote Request</h2>
+      // Prepare admin notification email
+      let adminEmailHtml = '';
+      let adminEmailSubject = '';
+
+      if (isQuote) {
+        adminEmailSubject = `New Quote Request — ${programName}`;
+        adminEmailHtml = `
+          <h2>New EasyQuote Request</h2>
+          <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+          <hr>
+          <h3>Client Details</h3>
           <ul>
-            <li><strong>Full Name:</strong> ${fullName}</li>
-            <li><strong>Position:</strong> ${position || 'N/A'}</li>
-            <li><strong>Contact Number:</strong> ${contactNumber || 'N/A'}</li>
-            <li><strong>Email:</strong> ${email}</li>
+            <li><strong>Name:</strong> ${fullName}</li>
             <li><strong>Company:</strong> ${company || 'N/A'}</li>
-            <li><strong>Program:</strong> ${programName || programId}</li>
+            <li><strong>Position:</strong> ${position || 'N/A'}</li>
+            <li><strong>Email:</strong> ${email}</li>
+            <li><strong>Phone:</strong> ${contactNumber || 'N/A'}</li>
+          </ul>
+          <h3>Quote Details</h3>
+          <ul>
+            <li><strong>Programme:</strong> ${programName}</li>
             <li><strong>Delivery Mode:</strong> ${deliveryMode || 'N/A'}</li>
-            <li><strong>Learners:</strong> ${learners}</li>
-            <li><strong>Per Learner:</strong> R${perLearner}</li>
-            <li><strong>Total:</strong> R${total}</li>
-            <li><strong>Firestore:</strong> ${colPath}/${docRef.id}</li>
-          </ul>`
+            <li><strong>Number of Learners:</strong> ${learners}</li>
+            <li><strong>Cost Per Learner:</strong> R${perLearner?.toLocaleString('en-ZA')}</li>
+            <li><strong>Total Estimated Cost:</strong> <strong style="color: #3349df; font-size: 1.2em;">R${total?.toLocaleString('en-ZA')}</strong></li>
+          </ul>
+          <hr>
+          <p><em>Firestore Reference: ${colPath}/${docRef.id}</em></p>
+        `;
+      } else {
+        adminEmailSubject = `New Website Inquiry from ${fullName}`;
+        adminEmailHtml = `
+          <h2>New Website Inquiry</h2>
+          <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+          <hr>
+          <h3>Contact Details</h3>
+          <ul>
+            <li><strong>Name:</strong> ${fullName}</li>
+            <li><strong>Email:</strong> ${email}</li>
+          </ul>
+          <h3>Message</h3>
+          <p>${message || 'No message provided'}</p>
+          <hr>
+          <p><em>Firestore Reference: ${colPath}/${docRef.id}</em></p>
+        `;
+      }
+
+      // Send notification to admin with replyTo set to user's email
+      const adminMsg = {
+        to: notificationEmail,
+        from: emailFrom,
+        replyTo: email, // Allow client to reply directly to the user
+        subject: adminEmailSubject,
+        html: adminEmailHtml,
       };
 
-      // send with retry and improved logging
+      // Send to admin
       const sendWithRetry = async (message: any, attempts = 3) => {
         let lastErr: any = null;
         for (let i = 0; i < attempts; i++) {
@@ -120,58 +173,91 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       };
 
       try {
-        const ok = await sendWithRetry(msg, 3);
-        if (ok) console.log(`SendGrid: notification sent to ${sendTo}`);
+        const adminOk = await sendWithRetry(adminMsg, 3);
+        if (adminOk) {
+          console.log(`SendGrid: admin notification sent to ${notificationEmail}`);
+        }
       } catch (e) {
-        console.warn('SendGrid notification failed:', (e as any)?.message || e);
+        console.warn('SendGrid admin notification failed:', (e as any)?.message || e);
       }
 
-      // Also send the client a copy of their quote (cc info@empoderata.net)
-      try {
-        const clientHtml = `
-          <p>Hi ${fullName},</p>
-          <p>Thank you for requesting a quote. Below are the details we received:</p>
-          <ul>
-            <li><strong>Company:</strong> ${company || 'N/A'}</li>
-            <li><strong>Contact:</strong> ${fullName} (${position || 'N/A'})</li>
-            <li><strong>Email:</strong> ${email}</li>
-            <li><strong>Contact Number:</strong> ${contactNumber || 'N/A'}</li>
-            <li><strong>Program:</strong> ${programName || programId}</li>
-            <li><strong>Delivery Mode:</strong> ${deliveryMode || 'N/A'}</li>
-            <li><strong>Learners:</strong> ${learners}</li>
-            <li><strong>Per Learner:</strong> R${perLearner}</li>
-            <li><strong>Total:</strong> R${total}</li>
-          </ul>
-          <p>Our team will contact you within 24-48 hours.</p>
-          <p>Regards,<br/>Empodera Team</p>
-        `;
+      // Send confirmation email to user
+      if (isQuote) {
+        try {
+          const userHtml = `
+            <p>Hi ${fullName},</p>
+            <p>Thank you for requesting a quote from Empodera Training Academy.</p>
+            <h3>Quote Summary</h3>
+            <ul>
+              <li><strong>Programme:</strong> ${programName}</li>
+              <li><strong>Number of Learners:</strong> ${learners}</li>
+              <li><strong>Cost Per Learner:</strong> R${perLearner?.toLocaleString('en-ZA')}</li>
+              <li><strong>Total Estimated Cost:</strong> R${total?.toLocaleString('en-ZA')}</li>
+            </ul>
+            <p>Your formal quote has been generated and is ready for download. Our team has been notified and will be in touch within 24-48 hours.</p>
+            <p>If you have any questions, feel free to reply to this email.</p>
+            <p>Best regards,<br/>
+            <strong>Empodera Training Academy</strong><br/>
+            <a href="https://empoderata.net">www.empoderata.net</a></p>
+          `;
 
-        const clientMsg = {
-          to: email,
-          from: sendFrom,
-          subject: `Your quote request — ${programName || programId}`,
-          html: clientHtml,
-          cc: 'info@empoderata.net',
-        } as any;
+          const userMsg = {
+            to: email,
+            from: emailFrom,
+            replyTo: notificationEmail,
+            subject: `Your EasyQuote – ${programName}`,
+            html: userHtml,
+          };
 
-        const okClient = await sendWithRetry(clientMsg, 3);
-        if (okClient) console.log(`SendGrid: client copy sent to ${email} (cc info@empoderata.net)`);
-      } catch (err) {
-        console.warn('SendGrid client copy failed:', (err as any)?.message || err);
+          const userOk = await sendWithRetry(userMsg, 3);
+          if (userOk) {
+            console.log(`SendGrid: confirmation sent to ${email}`);
+          }
+        } catch (err) {
+          console.warn('SendGrid user confirmation failed:', (err as any)?.message || err);
+        }
+      } else {
+        try {
+          const inquiryHtml = `
+            <p>Hi ${fullName},</p>
+            <p>Thank you for reaching out to Empodera Training Academy. We've received your inquiry and will get back to you shortly.</p>
+            <p>If you don't hear from us within 24 hours, please feel free to email us directly at <strong>info@empoderata.net</strong>.</p>
+            <p>Best regards,<br/>
+            <strong>Empodera Training Academy</strong><br/>
+            <a href="https://empoderata.net">www.empoderata.net</a></p>
+          `;
+
+          const inquiryMsg = {
+            to: email,
+            from: emailFrom,
+            replyTo: notificationEmail,
+            subject: 'We received your inquiry – Empodera Training Academy',
+            html: inquiryHtml,
+          };
+
+          const inquiryOk = await sendWithRetry(inquiryMsg, 3);
+          if (inquiryOk) {
+            console.log(`SendGrid: inquiry confirmation sent to ${email}`);
+          }
+        } catch (err) {
+          console.warn('SendGrid inquiry confirmation failed:', (err as any)?.message || err);
+        }
       }
     } else {
-      console.log(`Quote ${docRef.id} saved. SendGrid not configured.`);
+      console.log(`Record ${docRef.id} saved. SendGrid not configured.`);
     }
 
     return res.status(200).json({
       success: true,
-      message: 'Quote submitted successfully',
-      quoteId: docRef.id,
+      message: isQuote 
+        ? 'Quote submitted successfully' 
+        : 'Inquiry submitted successfully',
+      recordId: docRef.id,
     });
   } catch (error) {
-    console.error('Error submitting quote:', error);
+    console.error('Error processing request:', error);
     return res.status(500).json({
-      error: 'Failed to submit quote',
+      error: 'Failed to process request',
       details: (error as any).message,
     });
   }
