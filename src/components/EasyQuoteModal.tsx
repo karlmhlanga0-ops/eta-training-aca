@@ -57,12 +57,21 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
     doc.setFillColor(51, 73, 223); // #3349df
     doc.rect(0, 0, pageWidth, 40, 'F');
 
-    // Logo/Branding
+    // Company Logo (left side)
+    try {
+      const logoUrl = '/PHOTO-2025-09-09-18-41-53-removebg-preview-CQrjhn-D.png';
+      doc.addImage(logoUrl, 'PNG', 20, 8, 20, 24);
+    } catch (e) {
+      // Logo failed to load, continue without it
+      console.warn('Logo failed to load in PDF');
+    }
+
+    // Logo/Branding (adjust x position to accommodate logo)
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(24);
-    doc.text('EMPODERA', 20, 18);
+    doc.text('EMPODERA', 45, 18);
     doc.setFontSize(10);
-    doc.text('Training Academy', 20, 27);
+    doc.text('Training Academy', 45, 27);
 
     yPosition = 55;
 
@@ -163,11 +172,64 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
     doc.setFontSize(16);
     doc.text(`R${total.toLocaleString('en-ZA')}`, pageWidth - 20, yPosition, { align: 'right' });
 
-    yPosition += 15;
+    yPosition += 20;
+
+    // Payment Information Section
+    doc.setTextColor(51, 73, 223);
+    doc.setFontSize(12);
+    doc.text('PAYMENT INFORMATION', 20, yPosition);
+    yPosition += 7;
+
+    doc.setTextColor(80, 80, 80);
+    doc.setFontSize(10);
+    doc.setFont(undefined, 'bold');
+    doc.text('Bank:', 25, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.text('Standard Bank', 50, yPosition);
+    yPosition += 5;
+
+    doc.setFont(undefined, 'bold');
+    doc.text('Account Holder:', 25, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.text('EMPODERA TRAINING ACADEMY (PTY) LTD', 50, yPosition);
+    yPosition += 5;
+
+    doc.setFont(undefined, 'bold');
+    doc.text('Account Number:', 25, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.text('10255154974', 50, yPosition);
+    yPosition += 5;
+
+    doc.setFont(undefined, 'bold');
+    doc.text('Account Type:', 25, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.text('MyMobiz Current Account', 50, yPosition);
+    yPosition += 5;
+
+    doc.setFont(undefined, 'bold');
+    doc.text('Branch:', 25, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.text('Johannesburg (Code: 051001)', 50, yPosition);
+    yPosition += 5;
+
+    doc.setFont(undefined, 'bold');
+    doc.text('SWIFT Address:', 25, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.text('SBZA ZA JJ', 50, yPosition);
+    yPosition += 8;
+
+    // Payment reference note
+    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(9);
+    doc.setFont(undefined, 'italic');
+    doc.text('Please use your Company Name as a reference.', 25, yPosition);
+
+    yPosition += 12;
 
     // Footer
     doc.setTextColor(150, 150, 150);
     doc.setFontSize(9);
+    doc.setFont(undefined, 'normal');
     doc.text('This is an indicative quote for preliminary planning purposes only.', 20, yPosition);
     yPosition += 5;
     doc.text('A formal proposal with all terms and conditions will follow within 24-48 hours.', 20, yPosition);
