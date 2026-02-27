@@ -106,7 +106,7 @@ const LearnershipsPage: React.FC = () => {
                             Build Your Future-Ready Workforce.
                         </h1>
                         <p className="text-xl text-gray-600 mb-8">
-                            Our accredited learnerships are designed not just for compliance, but as a robust engine for **B-BBEE growth, tax efficiency, and sustainable skills development**. Turn mandates into competitive advantages.
+                            Our accredited learnerships are designed not just for compliance, but as a robust engine for B-BBEE growth, tax efficiency, and sustainable skills development. Turn mandates into competitive advantages.
                         </p>
 
                         <div className="flex flex-wrap gap-4">
