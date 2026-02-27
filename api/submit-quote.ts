@@ -48,6 +48,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       learners,
       perLearner,
       total,
+      deliveryMode,
     } = req.body;
 
     // Validate required fields
@@ -71,6 +72,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       learners,
       perLearner,
       total,
+      deliveryMode,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
@@ -83,7 +85,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         to: sendTo,
         from: sendFrom,
         subject: `New Quote Request — ${programName || programId}`,
-        text: `New quote request\n\nFull Name: ${fullName}\nPosition: ${position || 'N/A'}\nContact Number: ${contactNumber || 'N/A'}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nProgram: ${programName || programId}\nLearners: ${learners}\nPer Learner: R${perLearner}\nTotal: R${total}\n\nFirestore: ${colPath}/${docRef.id}`,
+        text: `New quote request\n\nFull Name: ${fullName}\nPosition: ${position || 'N/A'}\nContact Number: ${contactNumber || 'N/A'}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nProgram: ${programName || programId}\nDelivery Mode: ${deliveryMode || 'N/A'}\nLearners: ${learners}\nPer Learner: R${perLearner}\nTotal: R${total}\n\nFirestore: ${colPath}/${docRef.id}`,
         html: `<h2>New Quote Request</h2>
           <ul>
             <li><strong>Full Name:</strong> ${fullName}</li>
@@ -92,6 +94,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
             <li><strong>Email:</strong> ${email}</li>
             <li><strong>Company:</strong> ${company || 'N/A'}</li>
             <li><strong>Program:</strong> ${programName || programId}</li>
+            <li><strong>Delivery Mode:</strong> ${deliveryMode || 'N/A'}</li>
             <li><strong>Learners:</strong> ${learners}</li>
             <li><strong>Per Learner:</strong> R${perLearner}</li>
             <li><strong>Total:</strong> R${total}</li>
@@ -134,6 +137,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
             <li><strong>Email:</strong> ${email}</li>
             <li><strong>Contact Number:</strong> ${contactNumber || 'N/A'}</li>
             <li><strong>Program:</strong> ${programName || programId}</li>
+            <li><strong>Delivery Mode:</strong> ${deliveryMode || 'N/A'}</li>
             <li><strong>Learners:</strong> ${learners}</li>
             <li><strong>Per Learner:</strong> R${perLearner}</li>
             <li><strong>Total:</strong> R${total}</li>

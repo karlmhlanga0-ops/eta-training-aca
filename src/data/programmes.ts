@@ -26,6 +26,7 @@ export interface Programme {
   certification?: string;
   career_opportunities?: string[];
   learning_options?: string;
+  brochure_url?: string;
 
   format: string;
   image_url: string;
@@ -91,7 +92,8 @@ export const LEARNERSHIP_DATA: Programme[] = [
     ],
     learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
-    image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Contact+Centre'
+    image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Contact+Centre',
+    brochure_url: '/brochures/learnerships/Contact-Centre-Manager.pdf'
   },
   {
     id: 'supply-chain-practitioner',
@@ -145,7 +147,8 @@ export const LEARNERSHIP_DATA: Programme[] = [
     ],
     learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
-    image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Supply+Chain'
+    image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Supply+Chain',
+    brochure_url: '/brochures/learnerships/Supply-Chain-Practitioner.pdf'
   },
   {
     id: 'freight-handler',
@@ -197,7 +200,8 @@ export const LEARNERSHIP_DATA: Programme[] = [
     ],
     learning_options: 'Classroom • Practical warehouse training • EISA',
     format: 'Blended (Online & Workplace)',
-    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Freight+Handling'
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Freight+Handling',
+    brochure_url: '/brochures/learnerships/Freight-Handler.pdf'
   },
   {
     id: 'insurance-underwriter',
@@ -249,7 +253,8 @@ export const LEARNERSHIP_DATA: Programme[] = [
     ],
     learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
-    image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Insurance+Risk'
+    image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Insurance+Risk',
+    brochure_url: '/brochures/learnerships/Insurance-Agent-Underwriter.pdf'
   },
   {
     id: 'project-manager',
@@ -299,7 +304,8 @@ export const LEARNERSHIP_DATA: Programme[] = [
     ],
     learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
-    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Project+Mgt'
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Project+Mgt',
+    brochure_url: '/brochures/learnerships/Project-Manager.pdf'
   },
   {
     id: 'insurance-claims-assessor',
@@ -349,7 +355,8 @@ export const LEARNERSHIP_DATA: Programme[] = [
     ],
     learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
-    image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Claims+Admin'
+    image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Claims+Admin',
+    brochure_url: '/brochures/learnerships/Insurance-Claims-Administrator-or-Assessor.pdf'
   },
   {
     id: 'truck-driver',
@@ -400,7 +407,8 @@ export const LEARNERSHIP_DATA: Programme[] = [
     ],
     learning_options: 'Classroom • Driving practicals • Workplace learning • EISA',
     format: 'Blended (Practical & Theory)',
-    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Truck+Driver'
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Truck+Driver',
+    brochure_url: '/brochures/learnerships/truck-driver.pdf'
   },
   {
     id: 'road-transport-manager',
@@ -451,7 +459,8 @@ export const LEARNERSHIP_DATA: Programme[] = [
     ],
     learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
-    image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Transport+Manager'
+    image_url: 'https://placehold.co/800x600/3b82f6/ffffff?text=Transport+Manager',
+    brochure_url: '/brochures/learnerships/Road-Transport-Manager.pdf'
   },
   {
     id: 'clearing-forwarding-agent',
@@ -502,7 +511,8 @@ export const LEARNERSHIP_DATA: Programme[] = [
     ],
     learning_options: 'Classroom • Blended • Workplace learning • EISA',
     format: 'Blended (Online & Workplace)',
-    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Clearing+Agent'
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Clearing+Agent',
+    brochure_url: '/brochures/learnerships/Clearing-Forwarding-Agent.pdf'
   }
 ];
 

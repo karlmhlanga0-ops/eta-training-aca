@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Clock, Target, Award, CheckCircle, Mail, Phone } from 'lucide-react';
+import { Clock, Target, Award, CheckCircle, Mail, Phone, Download } from 'lucide-react';
 import { LEARNERSHIP_DATA, Programme, getProgrammeBySlug } from '@/data/programmes';
 import EasyQuoteModal from '@/components/EasyQuoteModal';
 
@@ -130,6 +130,13 @@ const ProgramDetail: React.FC = () => {
                         <button onClick={() => setModalOpen(true)} className="block w-full text-center py-3 bg-gradient-to-r from-[#3349df] to-[#2c4ae8] text-white rounded-xl font-bold">Inquire / Enrol Now</button>
 
                         <button onClick={() => window.dispatchEvent(new CustomEvent('openApply', { detail: { programmeId: programme.id } }))} className="block w-full text-center py-3 bg-white/5 mt-4 text-[#3349df] rounded-xl font-bold border border-[#3349df]">Apply Now</button>
+
+                        {programme.brochure_url && (
+                            <a href={programme.brochure_url} download className="flex items-center justify-center w-full py-3 mt-4 bg-white/5 text-[#3349df] rounded-xl font-bold border border-[#3349df] hover:bg-[#eef1ff] transition-colors">
+                                <Download className="w-5 h-5 mr-2" />
+                                Download Brochure
+                            </a>
+                        )}
 
                         <EasyQuoteModal isOpen={modalOpen} onClose={() => setModalOpen(false)} initialProgramId={programme.id} />
 

@@ -2,6 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { X } from 'lucide-react';
 import { LEARNERSHIP_DATA, getProgrammeBySlug, PRICE_12_MONTHS, PRICE_18_MONTHS, PRICE_24_MONTHS } from '@/data/programmes';
 import type { Programme } from '@/data/programmes';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 interface EasyQuoteModalProps {
   isOpen: boolean;
@@ -45,6 +47,136 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
   const perLearner = selectedProgramme ? priceMap[selectedProgramme.price_key] ?? 0 : 0;
   const total = perLearner * formData.learners;
 
+  const generateAndDownloadPDF = () => {
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    let yPosition = 20;
+
+    // Header background
+    doc.setFillColor(51, 73, 223); // #3349df
+    doc.rect(0, 0, pageWidth, 40, 'F');
+
+    // Logo/Branding
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(24);
+    doc.text('EMPODERA', 20, 18);
+    doc.setFontSize(10);
+    doc.text('Training Academy', 20, 27);
+
+    yPosition = 55;
+
+    // Title
+    doc.setTextColor(51, 73, 223);
+    doc.setFontSize(18);
+    doc.text('FORMAL QUOTE', 20, yPosition);
+    yPosition += 10;
+
+    // Date
+    doc.setTextColor(80, 80, 80);
+    doc.setFontSize(11);
+    const today = new Date();
+    const dateStr = today.toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' });
+    doc.text(`Date: ${dateStr}`, 20, yPosition);
+    yPosition += 8;
+
+    // Client Details Section
+    doc.setTextColor(51, 73, 223);
+    doc.setFontSize(12);
+    doc.text('CLIENT DETAILS', 20, yPosition);
+    yPosition += 7;
+
+    doc.setTextColor(80, 80, 80);
+    doc.setFontSize(10);
+    doc.text(`Name: ${formData.fullName}`, 25, yPosition);
+    yPosition += 5;
+    doc.text(`Company: ${formData.company}`, 25, yPosition);
+    yPosition += 5;
+    doc.text(`Position: ${formData.position}`, 25, yPosition);
+    yPosition += 5;
+    doc.text(`Email: ${formData.email}`, 25, yPosition);
+    yPosition += 5;
+    doc.text(`Phone: ${formData.contactNumber}`, 25, yPosition);
+    yPosition += 12;
+
+    // Programme Details
+    doc.setTextColor(51, 73, 223);
+    doc.setFontSize(12);
+    doc.text('PROGRAMME DETAILS', 20, yPosition);
+    yPosition += 7;
+
+    doc.setTextColor(80, 80, 80);
+    doc.setFontSize(10);
+    doc.text(`Programme: ${selectedProgramme?.name || formData.programSlug}`, 25, yPosition);
+    yPosition += 5;
+    doc.text(`Delivery Mode: ${formData.mode}`, 25, yPosition);
+    yPosition += 5;
+    doc.text(`Number of Learners: ${formData.learners}`, 25, yPosition);
+    yPosition += 12;
+
+    // Cost Table
+    doc.setTextColor(51, 73, 223);
+    doc.setFontSize(12);
+    doc.text('COST BREAKDOWN', 20, yPosition);
+    yPosition += 10;
+
+    const tableData = [
+      ['Description', 'Unit Price', 'Quantity', 'Total'],
+      [
+        selectedProgramme?.name || formData.programSlug,
+        `R${perLearner.toLocaleString('en-ZA')}`,
+        `${formData.learners}`,
+        `R${total.toLocaleString('en-ZA')}`
+      ]
+    ];
+
+    autoTable(doc, {
+      startY: yPosition,
+      head: [[...tableData[0]]],
+      body: [[...tableData[1]]],
+      headStyles: {
+        fillColor: [51, 73, 223],
+        textColor: [255, 255, 255],
+        fontStyle: 'bold',
+        fontSize: 10
+      },
+      bodyStyles: {
+        textColor: [80, 80, 80],
+        fontSize: 10
+      },
+      columnStyles: {
+        1: { halign: 'right' },
+        2: { halign: 'center' },
+        3: { halign: 'right' }
+      },
+      margin: { left: 20, right: 20 }
+    });
+
+    yPosition = (doc as any).lastAutoTable.finalY + 15;
+
+    // Total
+    doc.setTextColor(51, 73, 223);
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(12);
+    doc.text('TOTAL ESTIMATED COST:', 20, yPosition);
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(16);
+    doc.text(`R${total.toLocaleString('en-ZA')}`, pageWidth - 20, yPosition, { align: 'right' });
+
+    yPosition += 15;
+
+    // Footer
+    doc.setTextColor(150, 150, 150);
+    doc.setFontSize(9);
+    doc.text('This is an indicative quote for preliminary planning purposes only.', 20, yPosition);
+    yPosition += 5;
+    doc.text('A formal proposal with all terms and conditions will follow within 24-48 hours.', 20, yPosition);
+
+    // Download the PDF
+    const filename = `Empodera-Quote-${formData.fullName.replace(/\s+/g, '-')}-${dateStr.replace(/\s+/g, '-')}.pdf`;
+    doc.save(filename);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -60,11 +192,15 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
       programName: selectedProgramme?.name || null,
       learners: formData.learners,
       perLearner,
-      total
+      total,
+      deliveryMode: formData.mode
     };
 
     try {
-      // Call the Vercel serverless API endpoint
+      // Generate and download PDF immediately
+      generateAndDownloadPDF();
+
+      // Submit to API (non-blocking)
       const res = await fetch('/api/submit-quote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -75,14 +211,14 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
         throw new Error(`API responded with status ${res.status}`);
       }
 
-      const data = await res.json();
-      setSuccessMessage(data.message || 'Thanks — your quote request was received. Our team will contact you within 24-48 hours.');
+      // Show success message
+      setSuccessMessage('✓ Check your downloads for your formal quote. Our team has also been notified.');
     } catch (err) {
       console.error('Failed to submit quote:', err);
-      setSuccessMessage('Quote submission failed. Please try again or contact us directly at info@empoderata.net');
+      setSuccessMessage('Quote submitted (PDF downloaded). If the email notification failed, please contact info@empoderata.net');
     } finally {
       setSubmitting(false);
-      // keep modal open so user can see success message; auto-close after a short delay
+      // Auto-close after a delay
       setTimeout(() => {
         setSuccessMessage(null);
         onClose();
