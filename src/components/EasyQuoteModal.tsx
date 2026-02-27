@@ -178,53 +178,56 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
     doc.setTextColor(51, 73, 223);
     doc.setFontSize(12);
     doc.text('PAYMENT INFORMATION', 20, yPosition);
-    yPosition += 7;
+    yPosition += 10;
 
     doc.setTextColor(80, 80, 80);
     doc.setFontSize(10);
-    doc.setFont(undefined, 'bold');
-    doc.text('Bank:', 25, yPosition);
-    doc.setFont(undefined, 'normal');
-    doc.text('Standard Bank', 50, yPosition);
-    yPosition += 5;
+    const labelX = 25;
+    const valueX = 100;
 
     doc.setFont(undefined, 'bold');
-    doc.text('Account Holder:', 25, yPosition);
+    doc.text('Bank:', labelX, yPosition);
     doc.setFont(undefined, 'normal');
-    doc.text('EMPODERA TRAINING ACADEMY (PTY) LTD', 50, yPosition);
-    yPosition += 5;
-
-    doc.setFont(undefined, 'bold');
-    doc.text('Account Number:', 25, yPosition);
-    doc.setFont(undefined, 'normal');
-    doc.text('10255154974', 50, yPosition);
-    yPosition += 5;
-
-    doc.setFont(undefined, 'bold');
-    doc.text('Account Type:', 25, yPosition);
-    doc.setFont(undefined, 'normal');
-    doc.text('MyMobiz Current Account', 50, yPosition);
-    yPosition += 5;
-
-    doc.setFont(undefined, 'bold');
-    doc.text('Branch:', 25, yPosition);
-    doc.setFont(undefined, 'normal');
-    doc.text('Johannesburg (Code: 051001)', 50, yPosition);
-    yPosition += 5;
-
-    doc.setFont(undefined, 'bold');
-    doc.text('SWIFT Address:', 25, yPosition);
-    doc.setFont(undefined, 'normal');
-    doc.text('SBZA ZA JJ', 50, yPosition);
+    doc.text('Standard Bank', valueX, yPosition);
     yPosition += 8;
+
+    doc.setFont(undefined, 'bold');
+    doc.text('Account Holder:', labelX, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.text('EMPODERA TRAINING ACADEMY (PTY) LTD', valueX, yPosition);
+    yPosition += 8;
+
+    doc.setFont(undefined, 'bold');
+    doc.text('Account Number:', labelX, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.text('10255154974', valueX, yPosition);
+    yPosition += 8;
+
+    doc.setFont(undefined, 'bold');
+    doc.text('Account Type:', labelX, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.text('MyMobiz Current Account', valueX, yPosition);
+    yPosition += 8;
+
+    doc.setFont(undefined, 'bold');
+    doc.text('Branch:', labelX, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.text('Johannesburg (Code: 051001)', valueX, yPosition);
+    yPosition += 8;
+
+    doc.setFont(undefined, 'bold');
+    doc.text('SWIFT Address:', labelX, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.text('SBZA ZA JJ', valueX, yPosition);
+    yPosition += 10;
 
     // Payment reference note
     doc.setTextColor(100, 100, 100);
     doc.setFontSize(9);
     doc.setFont(undefined, 'italic');
-    doc.text('Please use your Company Name as a reference.', 25, yPosition);
+    doc.text('Please use your Company Name as a reference.', labelX, yPosition);
 
-    yPosition += 12;
+    yPosition += 16;
 
     // Footer
     doc.setTextColor(150, 150, 150);
