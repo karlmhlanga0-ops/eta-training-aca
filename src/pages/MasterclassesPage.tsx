@@ -2,12 +2,13 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Gem, Calendar, Shield, Cpu, Zap, Trello, Users, Clock, Target } from 'lucide-react'; 
+import { Gem, Calendar, Shield, Cpu, Zap, Trello, Users, Clock, Target, TrendingUp, Briefcase } from 'lucide-react';
+import { LEADERSHIP_PROGRAMMES } from '@/data/programmes';
 
 // ⚠️ We will create a simple button component that can call the quote function
 // NOTE: Since the quote pop-up logic is external, this component uses a simple 'onClick' for demonstration.
 // You must wire this up to your external EasyQuote modal trigger.
-const QuoteTopicBlock: React.FC<{ title: string; icon: React.ReactNode; onQuoteClick: () => void }> = ({ title, icon, onQuoteClick }) => (
+const QuoteTopicBlock: React.FC<{ title: string; icon: React.ReactNode; onQuoteClick: () => void; isLeadership?: boolean }> = ({ title, icon, onQuoteClick, isLeadership = false }) => (
     <button 
         onClick={onQuoteClick}
         className="block w-full text-left p-8 bg-white rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:border-[#3349df] hover:-translate-y-1 focus:outline-none"
@@ -15,23 +16,38 @@ const QuoteTopicBlock: React.FC<{ title: string; icon: React.ReactNode; onQuoteC
         <div className="flex items-center mb-4">
             {/* Dark Blue Icon for premium feel */}
             {React.cloneElement(icon as React.ReactElement, { className: "w-10 h-10 text-[#2c4ae8] flex-shrink-0" })}
+            {isLeadership && (
+                <span className="ml-auto text-xs font-bold uppercase text-[#3349df] bg-blue-50 px-3 py-1 rounded-full">Leadership</span>
+            )}
         </div>
         <h3 className="text-2xl font-bold text-gray-900 mb-2">{title}</h3>
-        <p className="text-gray-600 text-sm">Click to instantly generate a custom quote for this specific executive topic.</p>
+        <p className="text-gray-600 text-sm">Click to instantly generate a custom quote for this specific programme or topic.</p>
     </button>
 );
 
 const MasterclassesPage: React.FC = () => {
     
-    // ⚠️ Masterclass topics based on your brief
-    const masterclassTopics = [
-        { title: 'Executive Leadership Development', icon: <Gem />, slug: 'leadership' },
+    // ⚠️ Existing strategic masterclass topics
+    const strategicTopics = [
         { title: 'Applied Artificial Intelligence (AI) Strategy', icon: <Cpu />, slug: 'ai-strategy' },
         { title: 'ESG Strategy and Reporting', icon: <Shield />, slug: 'esg-strategy' },
         { title: 'Digital Transformation & Future Readiness', icon: <Zap />, slug: 'digital-transformation' },
         { title: 'Cyber Resilience & Governance', icon: <Trello />, slug: 'cyber-governance' },
         { title: 'Advanced Negotiation for Executives', icon: <Users />, slug: 'negotiation-exec' },
     ];
+
+    // Leadership programme topics from data (with icons)
+    const leadershipTopicsWithIcons = LEADERSHIP_PROGRAMMES.map((prog) => ({
+        title: prog.name,
+        icon: prog.nqf_level === 0 && prog.id === 'emerging-leaders' ? <TrendingUp /> : 
+              prog.nqf_level === 0 && prog.id === 'middle-management' ? <Briefcase /> : 
+              <Gem />,
+        slug: prog.id,
+        isLeadership: true
+    }));
+
+    // Combine both arrays
+    const allMasterclassTopics = [...leadershipTopicsWithIcons, ...strategicTopics];
 
     // Placeholder for your EasyQuote Modal function
     const handleQuoteClick = (topicSlug: string) => {
@@ -56,7 +72,7 @@ const MasterclassesPage: React.FC = () => {
                             Bespoke Masterclasses for Executives.
                         </h1>
                         <p className="text-xl text-gray-300 mb-8">
-                            High-level, custom interventions designed for senior management. Select a strategic topic to instantly generate a tailored quote for your team's immediate upskilling needs.
+                            High-level, custom interventions designed for senior management. Select a strategic topic or leadership programme to instantly generate a tailored quote for your team's immediate upskilling needs.
                         </p>
 
                         <div className="flex flex-wrap gap-4">
@@ -128,14 +144,33 @@ const MasterclassesPage: React.FC = () => {
             </section>
 
 
-            {/* --- 3. Masterclass Topic Grid (Click to Quote) --- */}
+            {/* --- 3. Leadership Programmes Section --- */}
+            <section className="max-w-7xl mx-auto px-6 py-16">
+                <div className="mb-12">
+                    <h2 className="text-4xl font-extrabold text-gray-900 mb-4 text-center">Leadership Development Pathways</h2>
+                    <p className="text-xl text-gray-600 mb-6 text-center">Structured leadership programmes aligned to your organizational needs, from emerging talent to senior executives.</p>
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {leadershipTopicsWithIcons.map((topic) => (
+                            <QuoteTopicBlock 
+                                key={topic.slug} 
+                                title={topic.title} 
+                                icon={topic.icon} 
+                                onQuoteClick={() => handleQuoteClick(topic.slug)}
+                                isLeadership={true}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- 4. Strategic Masterclass Topics --- */}
             <section className="max-w-7xl mx-auto px-6 py-16 bg-white rounded-t-3xl shadow-inner">
-                <h2 className="text-4xl font-extrabold text-gray-900 mb-4 text-center">Select Your Strategic Focus Area</h2>
-                <p className="text-xl text-gray-600 mb-10 text-center">Click any topic below to instantly start generating a tailored quote via EasyQuote.</p>
+                <h2 className="text-4xl font-extrabold text-gray-900 mb-4 text-center">Strategic Focus Areas</h2>
+                <p className="text-xl text-gray-600 mb-10 text-center">Select a strategic topic below to instantly generate a tailored quote for your executive team's upskilling needs.</p>
                 
-                {/* ⚠️ Using the QuoteTopicBlock component and a 3-column grid */}
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {masterclassTopics.map((topic) => (
+                {/* Strategic Topics Grid */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                    {strategicTopics.map((topic) => (
                         <QuoteTopicBlock 
                             key={topic.slug} 
                             title={topic.title} 
@@ -146,7 +181,7 @@ const MasterclassesPage: React.FC = () => {
                 </div>
                 
                 {/* Secondary CTA for custom requests */}
-                <div className="text-center mt-12">
+                <div className="text-center">
                     <p className="text-xl text-gray-600 mb-4">Have an ultra-specific need? Our custom masterclasses address unique organizational challenges.</p>
                     <button 
                         onClick={() => handleQuoteClick('custom-masterclass')}

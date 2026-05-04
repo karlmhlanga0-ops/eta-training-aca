@@ -513,10 +513,437 @@ export const LEARNERSHIP_DATA: Programme[] = [
     format: 'Blended (Online & Workplace)',
     image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Clearing+Agent',
     brochure_url: '/brochures/learnerships/Clearing-Forwarding-Agent.pdf'
+  },
+  {
+    id: 'retail-supervisor',
+    name: 'Retail Supervisor',
+    category: 'Learnership',
+    nqf_level: 4,
+    saqa_id: 121316,
+    seta: 'Retail SETA',
+    credits: 140,
+    duration: '12 Months',
+    price_key: 'PRICE_12_MONTHS',
+    bbbee_impact: 'Skills Development (Category B)',
+    short_description: 'A qualification essential for organisations operating in retail environments that require strong frontline supervision and operational control.',
+    long_description: "This NQF Level 4 qualification equips learners with the capability to manage teams, oversee daily store operations, and deliver exceptional customer service—directly contributing to sales performance and operational efficiency. Learners develop supervisory skills in a blended format combining classroom learning with practical workplace experience.",
+    key_modules: [
+      'Retail Operations and Store Management',
+      'Stock Control and Merchandising',
+      'Customer Service Excellence',
+      'Sales and Performance Management',
+      'Team Supervision and Leadership'
+    ],
+    who_should_attend: 'Individuals working in retail environments, including supervisors, team leaders, and employees transitioning into supervisory roles.',
+    learning_outcomes: [
+      'Supervise retail staff and daily operations',
+      'Manage stock levels and merchandising standards',
+      'Handle customer interactions and complaints',
+      'Monitor sales performance and targets',
+      'Ensure compliance with retail procedures'
+    ],
+    qualified_will_be_able_to: [
+      'Lead and coordinate retail teams effectively',
+      'Maintain store standards and operational efficiency',
+      'Improve customer experience and satisfaction',
+      'Track and report on sales performance',
+      'Ensure compliance with organisational policies'
+    ],
+    entry_requirements: ['NQF Level 3 (RPL available)'],
+    international_comparability: [
+      'UK Retail Supervisor Standards',
+      'Australian Certificate IV in Retail Management',
+      'New Zealand Retail Management Qualifications'
+    ],
+    certification: 'Occupational Certificate: Retail Supervisor (NQF 4)',
+    career_opportunities: [
+      'Retail Supervisor',
+      'Store Team Leader',
+      'Department Supervisor',
+      'Assistant Store Manager'
+    ],
+    learning_options: 'Classroom • Blended • Workplace Learning • EISA',
+    format: 'Blended (Online & Workplace)',
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Retail+Supervisor',
+    brochure_url: '/brochures/learnerships/Retail-Supervisor.pdf'
+  },
+  {
+    id: 'retail-chain-store-manager',
+    name: 'Retail Chain Store Manager',
+    category: 'Learnership',
+    nqf_level: 5,
+    saqa_id: 103150,
+    seta: 'Retail SETA',
+    credits: 160,
+    duration: '12 Months',
+    price_key: 'PRICE_12_MONTHS',
+    bbbee_impact: 'Skills Development (Priority Element)',
+    short_description: 'A qualification designed for organisations requiring strong store-level leadership capable of driving profitability, operational efficiency, and team performance.',
+    long_description: "This NQF Level 5 qualification is designed for store managers and high-potential employees preparing for store leadership roles. Learners develop strategic and operational management skills to oversee retail branches and align store performance with business objectives. The programme combines theoretical knowledge with practical workplace application.",
+    key_modules: [
+      'Retail Business Management',
+      'Financial and Sales Performance Management',
+      'Operations Planning and Execution',
+      'Leadership and Team Development',
+      'Customer Experience Strategy'
+    ],
+    who_should_attend: 'Store managers, assistant managers, and high-potential employees preparing for store leadership roles.',
+    learning_outcomes: [
+      'Manage store profitability and budgets',
+      'Lead teams to achieve performance targets',
+      'Plan and execute store operations',
+      'Analyse sales and operational data',
+      'Enhance customer experience across stores'
+    ],
+    qualified_will_be_able_to: [
+      'Drive revenue and control operational costs',
+      'Lead and develop high-performing teams',
+      'Align store operations with business strategy',
+      'Monitor and improve store performance',
+      'Implement operational improvements'
+    ],
+    entry_requirements: ['NQF Level 4 (RPL available)'],
+    international_comparability: [
+      'UK Retail Management Diplomas',
+      'Australian Diploma of Retail Leadership',
+      'International Store Management Certifications'
+    ],
+    certification: 'Occupational Certificate: Retail Chain Store Manager (NQF 5)',
+    career_opportunities: [
+      'Store Manager',
+      'Branch Manager',
+      'Retail Operations Manager',
+      'Area Supervisor'
+    ],
+    learning_options: 'Classroom • Blended • Workplace Learning • EISA',
+    format: 'Blended (Online & Workplace)',
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Store+Manager',
+    brochure_url: '/brochures/learnerships/Retail-Chain-Store-Manager.pdf'
+  },
+  {
+    id: 'software-developer',
+    name: 'Software Developer',
+    category: 'Learnership',
+    nqf_level: 5,
+    saqa_id: 118707,
+    seta: 'CETA',
+    credits: 180,
+    duration: '12 Months',
+    price_key: 'PRICE_12_MONTHS',
+    bbbee_impact: 'Skills Development (Priority Element)',
+    short_description: 'A qualification that supports organisations in building internal digital capability by developing skilled software developers.',
+    long_description: "This NQF Level 5 qualification enables learners to design, develop, test, and maintain systems that improve operational efficiency and enable digital transformation. The programme combines theoretical foundations in programming with practical development experience, preparing graduates to contribute immediately to software development projects.",
+    key_modules: [
+      'Programming Fundamentals',
+      'Software Development and Design',
+      'Database Management',
+      'Systems Integration',
+      'Testing and Debugging'
+    ],
+    who_should_attend: 'Aspiring developers, IT graduates, and individuals seeking careers in software development.',
+    learning_outcomes: [
+      'Develop software applications',
+      'Write and test code',
+      'Design system solutions',
+      'Integrate systems and databases',
+      'Apply software development methodologies'
+    ],
+    qualified_will_be_able_to: [
+      'Build and maintain applications',
+      'Debug and optimise system performance',
+      'Collaborate in development teams',
+      'Implement scalable software solutions',
+      'Support digital transformation initiatives'
+    ],
+    entry_requirements: ['NQF Level 4 (with Mathematics) (RPL available)'],
+    international_comparability: [
+      'Microsoft Certified Developer Pathways',
+      'UK Software Development Apprenticeships',
+      'Global Coding Bootcamp Standards'
+    ],
+    certification: 'Occupational Certificate: Software Developer (NQF 5)',
+    career_opportunities: [
+      'Software Developer',
+      'Junior Programmer',
+      'Application Developer',
+      'Systems Developer'
+    ],
+    learning_options: 'Classroom • Blended • Workplace Learning • EISA',
+    format: 'Blended (Online & Workplace)',
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Software+Developer',
+    brochure_url: '/brochures/learnerships/Software-Developer.pdf'
+  },
+  {
+    id: 'management-assistant',
+    name: 'Management Assistant',
+    category: 'Learnership',
+    nqf_level: 5,
+    saqa_id: 101876,
+    seta: 'Services SETA',
+    credits: 150,
+    duration: '12 Months',
+    price_key: 'PRICE_12_MONTHS',
+    bbbee_impact: 'Skills Development (Priority Element)',
+    short_description: 'A qualification that equips learners with the skills to provide high-level administrative and executive support, ensuring efficient business operations.',
+    long_description: "This NQF Level 5 qualification equips learners with the skills to provide high-level administrative and executive support, ensuring efficient business operations and effective coordination across teams and departments. Learners develop competencies in office management, communication, record-keeping, and event coordination through blended learning.",
+    key_modules: [
+      'Office Administration and Coordination',
+      'Business Communication',
+      'Information and Records Management',
+      'Event and Meeting Coordination',
+      'Professional Practice'
+    ],
+    who_should_attend: 'Administrative professionals, office assistants, and individuals supporting management teams.',
+    learning_outcomes: [
+      'Manage office operations and schedules',
+      'Communicate effectively with stakeholders',
+      'Coordinate meetings and events',
+      'Maintain records and documentation',
+      'Support management teams'
+    ],
+    qualified_will_be_able_to: [
+      'Provide executive-level administrative support',
+      'Improve organisational efficiency',
+      'Manage communication and documentation',
+      'Coordinate internal and external engagements',
+      'Support decision-making processes'
+    ],
+    entry_requirements: ['NQF Level 4 (RPL available)'],
+    international_comparability: [
+      'UK Business Administration Diplomas',
+      'Australian Business Administration Certificates',
+      'International Office Management Standards'
+    ],
+    certification: 'Occupational Certificate: Management Assistant (NQF 5)',
+    career_opportunities: [
+      'Management Assistant',
+      'Executive Assistant',
+      'Office Administrator',
+      'Project Administrator'
+    ],
+    learning_options: 'Classroom • Blended • Workplace Learning • EISA',
+    format: 'Blended (Online & Workplace)',
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Management+Assistant',
+    brochure_url: '/brochures/learnerships/Management-Assistant.pdf'
+  },
+  {
+    id: 'entrepreneurial-business-manager',
+    name: 'Entrepreneurial Business Manager',
+    category: 'Learnership',
+    nqf_level: 4,
+    saqa_id: 124447,
+    seta: 'Services SETA',
+    credits: 140,
+    duration: '12 Months',
+    price_key: 'PRICE_12_MONTHS',
+    bbbee_impact: 'Skills Development (Category B)',
+    short_description: 'A qualification designed to drive entrepreneurship, enterprise development, and innovation within organisations and the broader economy.',
+    long_description: "This NQF Level 4 qualification drives entrepreneurship, enterprise development, and innovation. Learners are equipped with the practical skills required to start, manage, and grow sustainable businesses, contributing to economic growth and job creation. The programme combines business theory with practical venture development.",
+    key_modules: [
+      'Business Planning and Development',
+      'Financial Management for Small Business',
+      'Marketing and Sales Strategy',
+      'Operations Management',
+      'Entrepreneurship and Innovation'
+    ],
+    who_should_attend: 'Aspiring entrepreneurs, small business owners, and individuals involved in enterprise and supplier development initiatives.',
+    learning_outcomes: [
+      'Develop and implement business plans',
+      'Manage business finances and cash flow',
+      'Market products and services effectively',
+      'Operate and manage a business',
+      'Apply entrepreneurial thinking'
+    ],
+    qualified_will_be_able_to: [
+      'Start and manage a sustainable business',
+      'Identify and act on market opportunities',
+      'Manage business operations efficiently',
+      'Grow and scale business ventures',
+      'Contribute to enterprise development initiatives'
+    ],
+    entry_requirements: ['NQF Level 3 (RPL available)'],
+    international_comparability: [
+      'UK Enterprise and Small Business Qualifications',
+      'Australian Certificate IV in Entrepreneurship',
+      'Global SME Development Frameworks'
+    ],
+    certification: 'Occupational Certificate: Entrepreneurial Business Manager (NQF 4)',
+    career_opportunities: [
+      'Entrepreneur',
+      'Small Business Owner',
+      'Business Manager',
+      'Start-up Founder'
+    ],
+    learning_options: 'Classroom • Blended • Workplace Learning • EISA',
+    format: 'Blended (Online & Workplace)',
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Business+Manager',
+    brochure_url: '/brochures/learnerships/Entrepreneurial-Business-Manager.pdf'
   }
 ];
 
-export const ALL_PROGRAMMES = [...LEARNERSHIP_DATA];
+export const LEADERSHIP_PROGRAMMES: Programme[] = [
+  {
+    id: 'emerging-leaders',
+    name: 'Emerging Leaders Programme',
+    category: 'Masterclass',
+    nqf_level: 0, // Not a regulated qualification
+    saqa_id: 0,
+    seta: 'Empodera',
+    credits: 0,
+    duration: 'Flexible (modular)',
+    price_key: 'PRICE_12_MONTHS',
+    bbbee_impact: 'Leadership Development',
+    short_description: 'A foundational leadership development programme designed to build capability in high-potential employees and first-time managers.',
+    long_description: "The Emerging Leaders Programme is designed to build foundational leadership capability in high-potential employees and first-time managers. The programme focuses on developing self-awareness, communication, and core leadership skills to enable participants to transition effectively into leadership roles and contribute meaningfully to team performance. This tier emphasizes the fundamentals of leading self and others.",
+    key_modules: [
+      'Leading Self and Personal Mastery',
+      'Emotional Intelligence and Self-Awareness',
+      'Communication and Influencing Skills',
+      'Team Leadership Fundamentals',
+      'Problem-Solving and Decision-Making'
+    ],
+    who_should_attend: 'First-time managers, supervisors, and high-potential employees preparing for leadership roles.',
+    learning_outcomes: [
+      'Develop self-awareness and emotional intelligence',
+      'Master foundational communication and influencing',
+      'Lead teams with confidence and clarity',
+      'Solve problems and make sound decisions',
+      'Transition effectively into leadership roles'
+    ],
+    qualified_will_be_able_to: [
+      'Lead teams effectively with strong communication',
+      'Build trust and psychological safety within teams',
+      'Make decisions aligned with organisational values',
+      'Develop their own leadership capability continuously',
+      'Support their team\'s growth and performance'
+    ],
+    entry_requirements: ['Identified as high-potential or newly promoted to supervisory/management roles'],
+    international_comparability: [
+      'UK Leadership Foundations',
+      'Global First-Time Manager Programmes',
+      'International EQ Development Standards'
+    ],
+    certification: 'Emerging Leaders Programme Certificate',
+    career_opportunities: [
+      'Team Leader',
+      'Supervisor',
+      'Manager',
+      'Department Lead'
+    ],
+    learning_options: 'Classroom • Blended • Virtual • Cohort-based',
+    format: 'Blended (Interactive workshops & self-paced modules)',
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Emerging+Leaders',
+    brochure_url: '/brochures/leadership/Emerging-Leaders-Programme.pdf'
+  },
+  {
+    id: 'middle-management',
+    name: 'Middle Management Programme',
+    category: 'Masterclass',
+    nqf_level: 0, // Not a regulated qualification
+    saqa_id: 0,
+    seta: 'Empodera',
+    credits: 0,
+    duration: 'Flexible (modular)',
+    price_key: 'PRICE_12_MONTHS',
+    bbbee_impact: 'Leadership Development',
+    short_description: 'A strategic development programme designed to strengthen middle managers in leading teams, executing strategy, and driving operational performance.',
+    long_description: "The Middle Management Programme is designed to strengthen the capability of middle managers to lead teams, execute strategy, and drive operational performance. It focuses on bridging the gap between strategy and execution, equipping managers with the tools to manage performance, lead people effectively, and deliver results in complex environments. This tier develops capability in performance management, strategic thinking, and stakeholder engagement.",
+    key_modules: [
+      'Leading Teams and Driving Accountability',
+      'Performance Management and Delivery',
+      'Strategic Thinking and Execution',
+      'Stakeholder Management',
+      'Managing in Complex and Dynamic Environments'
+    ],
+    who_should_attend: 'Middle managers, functional managers, and experienced supervisors responsible for team and operational performance.',
+    learning_outcomes: [
+      'Lead high-performing teams to delivery',
+      'Drive organisational strategy at the operational level',
+      'Manage performance with accountability and fairness',
+      'Navigate stakeholder complexity and interests',
+      'Deliver results in changing environments'
+    ],
+    qualified_will_be_able_to: [
+      'Execute strategy through effective team leadership',
+      'Drive performance management and accountability',
+      'Manage multiple stakeholder relationships',
+      'Lead through uncertainty and change',
+      'Develop talent and build succession pipelines'
+    ],
+    entry_requirements: ['2+ years in a management role; ideally completed foundational leadership programme'],
+    international_comparability: [
+      'UK Middle Management Development',
+      'Global Operations Leadership Programmes',
+      'International Performance Management Standards'
+    ],
+    certification: 'Middle Management Programme Certificate',
+    career_opportunities: [
+      'Senior Manager',
+      'Operations Manager',
+      'Functional Director',
+      'Area Manager'
+    ],
+    learning_options: 'Classroom • Blended • Virtual • Action Learning Sets',
+    format: 'Blended (Case studies, group projects, workplace application)',
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Middle+Management',
+    brochure_url: '/brochures/leadership/Middle-Management-Programme.pdf'
+  },
+  {
+    id: 'senior-leadership',
+    name: 'Senior Leadership Programme',
+    category: 'Masterclass',
+    nqf_level: 0, // Not a regulated qualification
+    saqa_id: 0,
+    seta: 'Empodera',
+    credits: 0,
+    duration: 'Flexible (modular)',
+    price_key: 'PRICE_12_MONTHS',
+    bbbee_impact: 'Executive Development',
+    short_description: 'A high-impact development journey for executives and senior leaders responsible for organisational direction and transformation.',
+    long_description: "The Senior Leadership Programme is a high-impact development journey designed for executives and senior leaders responsible for organisational direction and transformation. The programme focuses on strategic leadership, decision-making in complexity, and leading organisations through change, equipping leaders to drive long-term value and sustainable growth. This tier develops executive capability in vision-setting, transformation leadership, and enterprise-wide stakeholder management.",
+    key_modules: [
+      'Strategic Leadership and Organisational Direction',
+      'Leading in Complexity and Uncertainty (VUCA)',
+      'Executive Decision-Making',
+      'Innovation and Transformation',
+      'Stakeholder and Ecosystem Leadership'
+    ],
+    who_should_attend: 'Senior leaders, executives, and decision-makers responsible for organisational strategy and performance.',
+    learning_outcomes: [
+      'Define and communicate compelling organisational vision',
+      'Lead transformation and strategic initiatives',
+      'Make decisions in complexity and uncertainty',
+      'Build and manage enterprise ecosystems',
+      'Drive sustainable value creation and growth'
+    ],
+    qualified_will_be_able_to: [
+      'Set strategic direction and align organisations',
+      'Lead major transformation and change programmes',
+      'Navigate VUCA environments with confidence',
+      'Build high-performing executive teams',
+      'Create sustainable competitive advantage'
+    ],
+    entry_requirements: ['C-suite or equivalent; 5+ years in senior leadership role; strategic responsibility'],
+    international_comparability: [
+      'UK Executive Leadership Programmes',
+      'Global C-Suite Development',
+      'International Transformation Leadership Standards'
+    ],
+    certification: 'Senior Leadership Programme Certificate',
+    career_opportunities: [
+      'Chief Executive Officer',
+      'Chief Operating Officer',
+      'Executive Director',
+      'Board Member'
+    ],
+    learning_options: 'Executive workshops • Coaching • Peer learning • Strategic immersions',
+    format: 'Blended (Executive briefings, immersions, coaching, peer forums)',
+    image_url: 'https://placehold.co/800x600/3349df/ffffff?text=Senior+Leadership',
+    brochure_url: '/brochures/leadership/Senior-Leadership-Programme.pdf'
+  }
+];
+
+export const ALL_PROGRAMMES = [...LEARNERSHIP_DATA, ...LEADERSHIP_PROGRAMMES];
 
 export const getProgrammeBySlug = (slug: string): Programme | undefined => {
   return ALL_PROGRAMMES.find(p => p.id === slug);
