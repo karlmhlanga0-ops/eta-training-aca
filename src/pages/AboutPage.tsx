@@ -23,7 +23,7 @@ const missionAndVision = [
     },
 ];
 
-// Data for Workforce Services (from your existing About.tsx)
+// Data for Workforce Services
 const serviceTiles = [
     { 
       title: 'Absorption Services', 
@@ -45,6 +45,33 @@ const serviceTiles = [
     }
 ];
 
+// Data for Board of Directors
+const boardMembers = [
+    {
+        name: 'Bongani Phakathi',
+        role: 'Chairperson of the Board',
+        desc: 'A respected leader in organisational transformation, also serving on the board of Michaelhouse, contributing strong governance and strategic insight.',
+        image: 'https://res.cloudinary.com/didgosar5/image/upload/v1777897923/bongani-phakathi-chair_johipg.png'
+    },
+    {
+        name: 'Dr Bongani Mageba',
+        role: 'Chief Executive Officer',
+        desc: 'Chief Executive Officer of Telesure Investment Holdings, bringing deep expertise in financial services, strategic leadership, and large-scale organisational growth.',
+        image: 'https://res.cloudinary.com/didgosar5/image/upload/v1777897922/Bongani-Mageba_ggazg7.png'
+    },
+    {
+        name: 'Dr. Steven Zwane',
+        role: 'Managing Executive, Absa',
+        desc: 'Managing Executive at Absa Group Limited, with extensive experience in banking, leadership, and driving business performance at scale.',
+        image: 'https://res.cloudinary.com/didgosar5/image/upload/v1777897938/steven-zwane_lbnrai.png'
+    },
+    {
+        name: 'Professor Phakeng',
+        role: 'Former Vice-Chancellor, UCT',
+        desc: 'Globally recognised academic, renowned for her leadership in higher education, transformation, and innovation.',
+        image: 'https://res.cloudinary.com/didgosar5/image/upload/v1777897922/mamokgethi-phakeng_kkq06t.png'
+    }
+];
 
 const AboutPage: React.FC = () => {
     return (
@@ -84,7 +111,7 @@ const AboutPage: React.FC = () => {
                 </div>
             </section>
 
-            {/* Core Services Section (from your previous component) */}
+            {/* Core Services Section */}
             <section className="py-20 bg-white">
                 <div className="max-w-6xl mx-auto px-6">
                     <h2 className="text-4xl font-bold text-center mb-4 text-text-dark">
@@ -119,6 +146,42 @@ const AboutPage: React.FC = () => {
                                 </div>
                             );
                         })}
+                    </div>
+                </div>
+            </section>
+
+            {/* Board of Directors Section */}
+            <section className="py-20 bg-gray-50">
+                <div className="max-w-6xl mx-auto px-6">
+                    <h2 className="text-4xl font-bold text-center mb-4 text-text-dark">
+                        Our Board of Directors
+                    </h2>
+                    <p className="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+                        Guided by visionary leaders committed to organizational transformation and governance.
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {boardMembers.map((member, index) => (
+                            <div key={index} className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                                {/* Image Container */}
+                                <div className="aspect-[4/5] bg-white w-full flex items-center justify-center p-4">
+                                    <img src={member.image} alt={member.name} className="w-full h-full object-contain" />
+                                </div>
+                                
+                                {/* Hover Overlay */}
+                                <div className="absolute inset-0 bg-primary/95 flex flex-col justify-center items-center text-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                                    <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
+                                    <p className="text-sm font-semibold text-secondary mb-4">{member.role}</p>
+                                    <p className="text-sm text-gray-200 leading-relaxed">{member.desc}</p>
+                                </div>
+                                
+                                {/* Default Bottom Bar (Hidden on hover) */}
+                                <div className="absolute bottom-0 left-0 w-full bg-white py-4 px-2 text-center transition-opacity duration-300 group-hover:opacity-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-10">
+                                    <h3 className="font-bold text-gray-900">{member.name}</h3>
+                                    <p className="text-xs text-primary font-medium">{member.role}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
