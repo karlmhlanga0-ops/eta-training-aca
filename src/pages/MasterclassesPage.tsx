@@ -151,13 +151,21 @@ const MasterclassesPage: React.FC = () => {
                     <p className="text-xl text-gray-600 mb-6 text-center">Structured leadership programmes aligned to your organizational needs, from emerging talent to senior executives.</p>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {leadershipTopicsWithIcons.map((topic) => (
-                            <QuoteTopicBlock 
-                                key={topic.slug} 
-                                title={topic.title} 
-                                icon={topic.icon} 
-                                onQuoteClick={() => handleQuoteClick(topic.slug)}
-                                isLeadership={true}
-                            />
+                            <Link 
+                                key={topic.slug}
+                                to="/leadership"
+                                className="block w-full text-left p-8 bg-white rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:border-[#3349df] hover:-translate-y-1 focus:outline-none"
+                            >
+                                <div className="flex items-center mb-4">
+                                    {React.cloneElement(topic.icon as React.ReactElement, { className: "w-10 h-10 text-[#2c4ae8] flex-shrink-0" })}
+                                    <span className="ml-auto text-xs font-bold uppercase text-[#3349df] bg-blue-50 px-3 py-1 rounded-full">Leadership</span>
+                                </div>
+                                <h3 className="text-2xl font-bold text-gray-900 mb-2">{topic.title}</h3>
+                                <p className="text-gray-600 text-sm mb-6">Explore the full leadership pathway and begin your executive development journey.</p>
+                                <span className="inline-flex items-center justify-center px-5 py-3 bg-[#3349df] text-white rounded-full text-sm font-semibold hover:bg-[#243bff] transition-colors">
+                                    Learn More
+                                </span>
+                            </Link>
                         ))}
                     </div>
                 </div>

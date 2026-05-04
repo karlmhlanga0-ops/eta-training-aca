@@ -46,6 +46,13 @@ const serviceTiles = [
 ];
 
 // Data for Board of Directors
+const founder = {
+    name: 'Selu Msweli',
+    role: 'Founder and CEO',
+    desc: 'A visionary leader with a strong commitment to strategic workforce development, Selu brings corporate experience and entrepreneurial rigor to every programme.',
+    image: 'https://res.cloudinary.com/didgosar5/image/upload/v1777902624/selu-msweli_fimo9j.jpg'
+};
+
 const boardMembers = [
     {
         name: 'Bongani Phakathi',
@@ -151,6 +158,37 @@ const AboutPage: React.FC = () => {
             </section>
 
             {/* Board of Directors Section */}
+            <section className="py-24 bg-gray-50">
+                <div className="max-w-6xl mx-auto px-6">
+                    <h2 className="text-4xl font-bold text-center mb-4 text-text-dark">
+                        Our Founder and CEO
+                    </h2>
+                    <p className="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+                        Leading Empodera from the front with a strong focus on premium leadership development and practical business impact.
+                    </p>
+
+                    <div className="relative bg-white rounded-[2rem] shadow-[0_24px_80px_rgba(15,23,42,0.12)] overflow-hidden border border-gray-200">
+                        <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] items-center px-8 py-10">
+                            <div className="space-y-6">
+                                <p className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.32em] text-[#3349df] font-semibold">
+                                    Founder Leadership
+                                </p>
+                                <h2 className="text-5xl font-extrabold text-text-dark leading-tight">Selu Msweli</h2>
+                                <p className="text-lg text-gray-600 max-w-2xl">
+                                    Founder and CEO with deep experience in executive talent development and building leadership capability at scale.
+                                </p>
+                                <p className="text-base text-gray-700 max-w-2xl">
+                                    Selu combines strategic clarity with a premium delivery mindset, ensuring every programme is designed for business transformation and long-term impact.
+                                </p>
+                            </div>
+                            <div className="rounded-[1.75rem] overflow-hidden bg-slate-950 shadow-2xl border border-[#e2e8f0]">
+                                <img src={founder.image} alt={founder.name} className="w-full h-full object-cover min-h-[340px]" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section className="py-20 bg-gray-50">
                 <div className="max-w-6xl mx-auto px-6">
                     <h2 className="text-4xl font-bold text-center mb-4 text-text-dark">

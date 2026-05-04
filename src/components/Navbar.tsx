@@ -12,6 +12,7 @@ import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
         { name: 'Learnerships', href: '/learnerships' },      
         { name: 'Short Programmes', href: '/short-programmes' },
         { name: 'Masterclasses', href: '/masterclasses' },    
+        { name: 'Leadership', href: '/leadership' },
     ]
   },
   // Note: I assume you will add a route for /about in App.tsx, which should route to AboutPage

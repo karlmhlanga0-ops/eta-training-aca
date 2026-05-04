@@ -17,6 +17,7 @@ import MasterclassesPage from './pages/MasterclassesPage';
 import ProgramDetail from './pages/ProgramDetail';
 import QuotePage from './pages/QuotePage';
 import AboutPage from './pages/AboutPage';
+import LeadershipPage from './pages/Leadership';
 import Contact from './pages/Contact';
 
 // --- Component Imports ---
@@ -43,6 +44,7 @@ const App = () => (
                 <Route path="/learnerships" element={<LearnershipsPage />} />
                 <Route path="/short-programmes" element={<SLPPage />} />
                 <Route path="/masterclasses" element={<MasterclassesPage />} />
+                <Route path="/leadership" element={<LeadershipPage />} />
 
                 {/* DYNAMIC DETAIL ROUTES */}
                 <Route path="/learnerships/:slug" element={<ProgramDetail />} />
