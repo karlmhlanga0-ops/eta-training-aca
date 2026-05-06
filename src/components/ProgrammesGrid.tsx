@@ -1,9 +1,10 @@
 import React from 'react';
-import { BookOpen, Zap, Gem } from 'lucide-react';
+import { BookOpen, Zap, Gem, Shield } from 'lucide-react';
 
 // Path constants for your CTAs
 const LEARNERSHIPS_PATH = '/learnerships';
 const SLPS_PATH = '/short-programmes';
+const LEADERSHIP_PATH = '/leadership';
 const MASTERCLASSES_PATH = '/masterclasses';
 
 const ServiceOverview: React.FC = () => {
@@ -31,8 +32,19 @@ const ServiceOverview: React.FC = () => {
       shadow: 'shadow-lg hover:shadow-2xl',
       ctaText: 'Explore SLPs',
       ctaPath: SLPS_PATH,
-      // Placeholder image URL
       image: 'https://d64gsuwffb70l.cloudfront.net/68eca18a5084cb1aee71fbcc_1760338386340_6e4064a9.webp'
+    },
+    {
+      title: 'Leadership Programmes',
+      subtitle: 'Organisational leadership, development and executive coaching',
+      description: 'Structured leadership pathways for emerging, middle, and senior leaders with impact-focused learning and strategic capability development.',
+      icon: Shield,
+      iconColor: 'text-[#3349df]',
+      bgColor: 'bg-white',
+      shadow: 'shadow-lg hover:shadow-2xl',
+      ctaText: 'Explore Leadership',
+      ctaPath: LEADERSHIP_PATH,
+      image: 'https://res.cloudinary.com/didgosar5/image/upload/v1777628876/office-collaboration_eubjqk.png'
     },
     {
       title: 'Masterclasses & Open Programmes',
@@ -63,7 +75,7 @@ const ServiceOverview: React.FC = () => {
           We offer four key training pillars to support every level of your workforce, ensuring measurable development and compliance goals are met.
         </p>
         
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {serviceBlocks.map((block, index) => (
             <div
               key={index}

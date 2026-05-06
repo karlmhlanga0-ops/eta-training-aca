@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
+import GetInTouchMenu from './GetInTouchMenu';
 
-// Define the full navigation structure with paths matching App.tsx
-  const navLinks = [
+const navLinks = [
   { name: 'Home', href: '/' },
-  { 
-    name: 'Programmes', 
+  {
+    name: 'Programmes',
     href: '/learnerships',
     dropdown: [
-        { name: 'Learnerships', href: '/learnerships' },      
-        { name: 'Short Programmes', href: '/short-programmes' },
-        { name: 'Masterclasses', href: '/masterclasses' },    
-        { name: 'Leadership', href: '/leadership' },
-    ]
+      { name: 'Learnerships', href: '/learnerships' },
+      { name: 'Short Programmes', href: '/short-programmes' },
+      { name: 'Leadership', href: '/leadership' },
+      { name: 'Masterclasses', href: '/masterclasses' },
+    ],
   },
-  // Note: I assume you will add a route for /about in App.tsx, which should route to AboutPage
-  { name: 'About Us', href: '/about' }, 
+  { name: 'About Us', href: '/about' },
+  { name: 'Contact Us', href: '/contact' },
 ];
 
 interface DropdownLinkProps {
@@ -77,7 +77,7 @@ const DropdownLink: React.FC<DropdownLinkProps> = ({ name, links, isMobile, onCl
                             <Link
                                 key={link.name}
                                 to={link.href}
-                                className="block px-4 py-3 text-sm font-medium text-text-dark hover:bg-gray-50 hover:text-primary transition-colors"
+                                className={`block px-4 py-3 text-sm font-medium transition-colors ${link.name === 'Masterclasses' ? 'text-[#3349df] font-bold' : 'text-text-dark hover:text-primary'} hover:bg-gray-50`}
                                 onClick={() => setIsDropdownOpen(false)}
                             >
                                 {link.name}
@@ -105,7 +105,7 @@ const DropdownLink: React.FC<DropdownLinkProps> = ({ name, links, isMobile, onCl
                         <Link
                             key={link.name}
                             to={link.href}
-                            className="block px-3 py-1 text-base text-gray-600 hover:text-primary font-normal"
+                            className={`block px-3 py-1 text-base font-normal transition-colors ${link.name === 'Masterclasses' ? 'text-[#3349df] font-semibold hover:text-[#3349df]' : 'text-gray-600 hover:text-primary'}`}
                             onClick={handleLinkClick} // Closes the mobile menu
                         >
                             {link.name}
@@ -169,10 +169,7 @@ const Navbar: React.FC = () => {
               );
             })}
             
-            {/* Primary CTA Button (Contact Us) - replaced Generate Quote */}
-            <Link to="/contact" className="ml-6 px-6 py-2.5 text-sm bg-primary text-white rounded-full font-bold shadow-lg hover:bg-secondary transition-all duration-300 transform hover:-translate-y-0.5">
-              Contact Us
-            </Link>
+            <GetInTouchMenu />
           </div>
 
           {/* Mobile Menu Button */}
@@ -197,12 +194,12 @@ const Navbar: React.FC = () => {
             {navLinks.map((item) => {
               if (item.dropdown) {
                 return (
-                  <DropdownLink 
-                    key={item.name} 
-                    name={item.name} 
-                    links={item.dropdown} 
-                    isMobile={true} 
-                    onClose={toggleMenu} // Close main menu if a submenu link is clicked
+                  <DropdownLink
+                    key={item.name}
+                    name={item.name}
+                    links={item.dropdown}
+                    isMobile={true}
+                    onClose={toggleMenu}
                     mainHref={item.href}
                   />
                 );
@@ -218,11 +215,9 @@ const Navbar: React.FC = () => {
                 </Link>
               );
             })}
-            
-            {/* Mobile CTA Button (Contact) */}
-            <Link to="/contact" onClick={toggleMenu} className="block w-full mt-4 px-4 py-3 text-base text-center bg-primary text-white rounded-lg font-bold shadow-lg hover:bg-secondary transition-colors duration-300">
-              Contact Us
-            </Link>
+            <div className="px-3 py-3">
+              <GetInTouchMenu fullWidth />
+            </div>
           </div>
         </div>
       )}

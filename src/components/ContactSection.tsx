@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
 import { Mail, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
-
-// Import your logos
 import tetaLogo from '@/assets/teta-logo.png';
 import insetaLogo from '@/assets/inseta-logo.png';
 import servicesLogo from '@/assets/services-logo.png';
-import qctoLogo from '@/assets/qtco-logo.jpg'; // Fixed typo from your list (qtco vs qcto)
+import qctoLogo from '@/assets/qtco-logo.jpg';
 import saqaLogo from '@/assets/saqa-logo.png';
 
 const MAP_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.5714!2d28.0563!3d-26.1075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9573397!2s36%20Wierda%20Rd%20W!5e0!3m2!1sen!2sza!4v1700000000000";
 
-interface ContactSectionProps {
-  onOpenQuote: () => void;
-}
-
-const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) => {
+const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -26,6 +20,9 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) => {
     { name: 'Services SETA', src: servicesLogo },
     { name: 'QCTO', src: qctoLogo },
     { name: 'SAQA', src: saqaLogo },
+    { name: 'Da Vinci Institute', src: 'https://res.cloudinary.com/didgosar5/image/upload/v1778053050/davinci-institute_ypufwf.png' },
+    { name: 'W&R SETA', src: 'https://res.cloudinary.com/didgosar5/image/upload/v1778053051/WRSETA_o40rws.jpg' },
+    { name: 'CETA', src: 'https://res.cloudinary.com/didgosar5/image/upload/v1778053049/ceta-logo_iaz9wy.png' },
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -88,10 +85,10 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) => {
           {/* Column 2: Accreditations (Replaced Quote CTA) */}
           <div className="space-y-8">
             <div className="bg-gradient-to-br from-[#3349df] to-[#2640c8] p-8 rounded-2xl shadow-xl text-white">
-              <h3 className="text-2xl font-bold mb-6 border-b border-white/20 pb-4">Accreditations & Alignment</h3>
+              <h3 className="text-2xl font-bold mb-6 border-b border-white/20 pb-4">Accreditations & Partners</h3>
               
               {/* Responsive Logo Grid */}
-              <div className="grid grid-cols-3 sm:grid-cols-3 gap-4 items-center">
+              <div className="grid grid-cols-3 sm:grid-cols-3 gap-8 items-center">
                 {accreditations.map((logo) => (
                   <div key={logo.name} className="bg-white p-2 rounded-lg flex items-center justify-center aspect-video overflow-hidden border border-white/10 shadow-sm">
                     <img 
