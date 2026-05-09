@@ -87,14 +87,14 @@ const ContactSection: React.FC = () => {
             <div className="bg-gradient-to-br from-[#3349df] to-[#2640c8] p-8 rounded-2xl shadow-xl text-white">
               <h3 className="text-2xl font-bold mb-6 border-b border-white/20 pb-4">Accreditations & Partners</h3>
               
-              {/* Responsive Logo Grid */}
-              <div className="grid grid-cols-3 sm:grid-cols-3 gap-8 items-center">
+              {/* Responsive Logo Grid - Adjusted padding, gap, and image containment */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6 items-center">
                 {accreditations.map((logo) => (
-                  <div key={logo.name} className="bg-white p-2 rounded-lg flex items-center justify-center aspect-video overflow-hidden border border-white/10 shadow-sm">
+                  <div key={logo.name} className="bg-white p-4 rounded-lg flex items-center justify-center aspect-video overflow-hidden border border-white/10 shadow-sm">
                     <img 
                       src={logo.src} 
                       alt={logo.name} 
-                      className="max-h-full max-w-full object-contain filter brightness-100 hover:scale-110 transition-transform duration-300"
+                      className="w-full h-full object-contain filter brightness-100 hover:scale-110 transition-transform duration-300"
                     />
                   </div>
                 ))}

@@ -119,7 +119,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       if (isQuote) {
         adminEmailSubject = `New Quote Request — ${programName}`;
         adminEmailHtml = `
-          <h2>New EasyQuote Request</h2>
+          <h2>New EasyQuote™ Request</h2>
           <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
           <hr>
           <h3>Client Details</h3>
@@ -221,7 +221,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
             to: email,
             from: emailFrom,
             replyTo: notificationEmail,
-            subject: `Your EasyQuote – ${programName}`,
+            subject: `Your EasyQuote™ – ${programName}`,
             html: userHtml,
           };
 

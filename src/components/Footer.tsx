@@ -108,7 +108,6 @@ const Footer: React.FC = () => {
     }, [particlesInit]);
 
   return (
-    // ⚠️ Added relative positioning and z-index to contain the particles
     <footer className="relative bg-gradient-to-br from-[#1e293b] to-[#3349df] text-white py-12 overflow-hidden z-0">
         
         {/* ⚠️ PARTICLE EFFECT LAYER for Footer */}
@@ -159,18 +158,18 @@ const Footer: React.FC = () => {
           {/* Connect */}
           <div>
             <h4 className="font-bold mb-4">Connect</h4>
-            {/* ⚠️ UPDATED ADDRESS DETAILS */}
             <p className="text-sm text-white/80 mb-1">Block A</p>
             <p className="text-sm text-white/80 mb-3">Sandton</p>
-            {/* END UPDATED ADDRESS DETAILS */}
             <p className="text-sm text-white/80 mb-2"><Link to="/contact" className="hover:text-white/80">info@empoderata.net</Link></p>
           </div>
         </div>
 
-        <div className="border-t border-white/20 pt-8 text-center text-sm">
-          <p className="mb-2">© 2025 Empodera Training Academy. All rights reserved.</p>
-          <p className="text-white/60">
-            Site powered by <a href="https://easyquote.octothorp.online" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">EasyQuote (ODS)</a>
+        <div className="border-t border-white/20 pt-8 text-center text-sm flex flex-col gap-2">
+          <p>© {new Date().getFullYear()} Empodera Training Academy. All rights reserved.</p>
+          <p className="text-white/70">
+            Designed & Developed by <a href="https://octothorp.online" target="_blank" rel="noopener noreferrer" className="text-white hover:underline transition-colors font-semibold">Octothorp Digital Solutions</a> 
+            <span className="hidden sm:inline mx-2">|</span><br className="sm:hidden" />
+            Powered by <a href="https://octothorp.online/easyquote" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors font-medium">EasyQuote™</a>
           </p>
         </div>
       </div>

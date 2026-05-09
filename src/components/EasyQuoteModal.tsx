@@ -307,7 +307,7 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
           <button onClick={onClose} className="absolute top-4 right-4 text-white hover:bg-white/20 rounded-full p-2">
             <X className="w-6 h-6" />
           </button>
-          <h2 className="text-3xl font-bold text-white">EasyQuote Calculator</h2>
+          <h2 className="text-3xl font-bold text-white">EasyQuote™ Calculator</h2>
           <p className="text-white/90 mt-2">Get an instant training cost estimate</p>
         </div>
 
@@ -389,7 +389,7 @@ const EasyQuoteModal: React.FC<EasyQuoteModalProps> = ({ isOpen, onClose, initia
           </button>
 
           <p className="text-xs text-center text-gray-500">
-            Powered by <a href="https://easyquote.octothorp.online" target="_blank" rel="noopener noreferrer" className="text-[#3349df] hover:underline">EasyQuote — Build your own at easyquote.octothorp.online</a>
+            Powered by <a href="https://octothorp.online/easyquote" target="_blank" rel="noopener noreferrer" className="text-[#3349df] hover:underline font-medium">EasyQuote™ — Build your own at octothorp.online/easyquote</a>
           </p>
         </form>
       </div>
